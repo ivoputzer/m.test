@@ -4,19 +4,22 @@ exports.test = (...args) => context.push(args)
 
 process.once('beforeExit', function () {
   context.forEach(([label, fn]) => {
+    const next = rendererFor(label)
     try {
-      fn(done.bind({label}))
+      fn(next)
     } catch (err) {
-      done.call({label}, err)
+      next(err)
     }
   })
 })
 
-function done (err) {
-  if (err) {
-    console.error('✘', this.label)
-    // process.exitCode = 1
-  } else {
-    console.log('✔', this.label)
+function rendererFor (label) {
+  return err => {
+    if (err) {
+      console.error('✘', label)
+      // process.exitCode = 1
+    } else {
+      console.log('✔', label)
+    }
   }
 }

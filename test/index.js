@@ -13,7 +13,6 @@ test('runner fails!', function (done) {
 
 test('runner works async!', function (done) {
   setTimeout(function (done) {
-    ok(true)
     done()
   }, 0, done)
 })
