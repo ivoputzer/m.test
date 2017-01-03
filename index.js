@@ -15,12 +15,14 @@ process.once('beforeExit', function () {
 })
 
 function rendererFor (label) {
+  const timestamp = Date.now()
   return err => {
+    const elapsed = Date.now() - timestamp
     if (err) {
-      console.error('✘', label)
+      console.error('✘ %s (%dms)', label, elapsed)
       // process.exitCode = 1
     } else {
-      console.log('✔', label)
+      console.log('✔ %s (%dms)', label, elapsed)
     }
   }
 }
