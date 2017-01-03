@@ -7,7 +7,7 @@ process.once('beforeExit', function () {
     const next = rendererFor(label)
     try {
       fn(next)
-      if(fn.length === 0) next(null)
+      if (fn.length === 0) next(null)
     } catch (err) {
       next(err)
     }
