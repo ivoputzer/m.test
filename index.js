@@ -20,7 +20,7 @@ function rendererFor (label) {
     const elapsed = Date.now() - timestamp
     if (err) {
       console.error('✘ %s (%dms)', label, elapsed)
-      // process.exitCode = 1
+      process.exitCode = 1
     } else {
       console.log('✔ %s (%dms)', label, elapsed)
     }
