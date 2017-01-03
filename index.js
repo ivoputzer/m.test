@@ -2,24 +2,21 @@ const context = []
 
 exports.test = (...args) => context.push(args)
 
-process.on('beforeExit', function () {
-  console.time('\nelapsed')
+process.once('beforeExit', function () {
   context.forEach(([label, fn]) => {
     try {
-      fn()
-      done(label, null)
+      fn(done.bind({label}))
     } catch (err) {
-      done(label, err)
+      done.call({label}, err)
     }
   })
-  console.timeEnd('\nelapsed')
 })
 
-function done (label, err) {
+function done (err) {
   if (err) {
-    console.error('✘', label)
+    console.error('✘', this.label)
     // process.exitCode = 1
   } else {
-    console.log('✔', label)
+    console.log('✔', this.label)
   }
 }
