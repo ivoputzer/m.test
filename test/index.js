@@ -1,5 +1,10 @@
 const {ok} = require('assert')
+const {test} = require('..')
 
-console.log(`let's test!`)
+test('runner works!', function () {
+  ok(true)
+})
 
-ok(true)
+test('runner fails!', function () {
+  ok(false)
+})
