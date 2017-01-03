@@ -16,3 +16,9 @@ test('runner works async!', function (done) {
     done()
   }, 0, done)
 })
+
+test('runner fails async!', function (done) {
+  setTimeout(function (done) {
+    done(Error.prototype)
+  }, 0, done)
+})
