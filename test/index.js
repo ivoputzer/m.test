@@ -22,3 +22,11 @@ test('runner fails async!', function (done) {
     done(Error.prototype)
   }, 0, done)
 })
+
+test('runner works with implicit done fn!', function () {
+  ok(true)
+})
+
+test('runner fails with implicit done fn!', function () {
+  ok(false)
+})
