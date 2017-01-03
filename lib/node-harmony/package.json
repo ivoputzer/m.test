@@ -1,0 +1,22 @@
+{
+  "name": "node-harmony",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "node-harmony": "bin/node-harmony",
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivoputzer/node-harmony.git"
+  },
+  "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivoputzer/node-harmony/issues"
+  },
+  "homepage": "https://github.com/ivoputzer/node-harmony#readme"
+}

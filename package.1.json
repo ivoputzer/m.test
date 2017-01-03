@@ -1,0 +1,46 @@
+{
+  "name": "m.test",
+  "version": "1.0.0",
+  "description": "test framework from the m.icro series",
+  "main": "index.js",
+  "readme": "readme.md",
+  "bin": {
+    "node-harmony": "bin/node-harmony",
+    "m.test": "bin/m.test"
+  },
+  "scripts": {
+    "test": "node test",
+    "node": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivoputzer/m.test.git"
+  },
+  "keywords": [
+    "m.icro",
+    "test",
+    "describe",
+    "it",
+    "skip",
+    "context",
+    "flush",
+    "done"
+  ],
+  "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivoputzer/m.test/issues"
+  },
+  "homepage": "https://github.com/ivoputzer/m.test#readme",
+  "dependencies": {
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "m.test": "./",
+    "mocha": "^2.4.5"
+  },
+  "engines": {
+    "node": "^5.0.0"
+  }
+}

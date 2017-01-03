@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+const {resolve} = require('path')
+const {inject} = require('../lib/m.inject')
+
+const files = process.argv.slice(2)
+console.log('m.test:files', files)
+
+function _require(){
+  console.log('m.test:_require', arguments)
+}
+
+files
+  .reduce(collect, [])
+  .map(file => _require(file))
+
+function collect(valid, file, i, _files){
+  return valid.concat(...resolve(file))
+}
+
+function *injector(){
+  console.log('yeah')
+}

@@ -1,0 +1,8 @@
+#!/usr/bin/env node --harmony --harmony_destructuring --harmony_default_parameters
+'use strict'
+
+function hello({world}, num=5){
+  console.log(world, num)
+}
+
+hello({world: 1}, 5)
