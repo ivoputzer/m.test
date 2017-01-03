@@ -1,0 +1,19 @@
+{
+  "name": "m.test",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ivoputzer/m.test#readme",
+  "description": "test framework from the m.icro series",
+  "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivoputzer/m.test.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivoputzer/m.test/issues"
+  }
+}
