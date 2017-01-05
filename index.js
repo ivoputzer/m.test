@@ -20,6 +20,12 @@ function rendererFor (label) {
     const elapsed = Date.now() - timestamp
     if (err) {
       console.error('✘ %s (%dms)', label, elapsed)
+      if(err.name==='TypeError'){
+        console.error(err)
+      }
+      else{
+        console.error('  %s : %s', err.name, err.message)        
+    }
       process.exitCode = 1
     } else {
       console.log('✔ %s (%dms)', label, elapsed)
