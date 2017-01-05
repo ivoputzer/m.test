@@ -5,12 +5,13 @@
   "description": "test framework from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "main": "index.js",
-  "engineStrict" : true,
+  "engineStrict": true,
   "engines": {
     "node": ">5"
   },
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ivoputzer/m.test/issues"
+  },
+  "devDependencies": {
+    "standard": "^8.6.0"
   }
 }
