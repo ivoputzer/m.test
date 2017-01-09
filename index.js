@@ -15,19 +15,31 @@ process.once('beforeExit', function () {
 })
 
 function rendererFor (label) {
-  const timestamp = Date.now()
-  return err => {
-    const elapsed = Date.now() - timestamp
-    if (err) {
-      console.error('\x1b[31m✘\x1b[0m: %s (%dms)', label, elapsed)
-      if (err.name === 'TypeError') {
-        console.error(err)
-      } else {
-        console.error('  %s : %s', err.name, err.message)
-      }
+  const {success, error} = handlerFor(label)
+  return (err) => {
+    return err ? error(err) : success()
+  }
+}
+
+function handlerFor (label) {
+  const {elapsed} = timerFor(label)
+  return {
+    success (label) {
+      console.log('\x1b[32m✔\x1b[0m %s (%dms)', label, elapsed())
+    },
+    error (err) {
+      console.log('\x1b[31m✘\x1b[0m %s (%dms)', label, elapsed())
+      console.error(err)
       process.exitCode = 1
-    } else {
-      console.log('\x1b[32m✔\x1b[0m: %s (%dms)', label, elapsed)
+    }
+  }
+}
+
+function timerFor (label) {
+  const timestamp = Date.now()
+  return {
+    elapsed () {
+      return Date.now() - timestamp
     }
   }
 }
