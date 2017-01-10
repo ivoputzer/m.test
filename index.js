@@ -24,7 +24,7 @@ function rendererFor (label) {
 function handlerFor (label) {
   const {elapsed} = timerFor(label)
   return {
-    success (label) {
+    success () {
       console.log('\x1b[32m✔\x1b[0m %s (%dms)', label, elapsed())
     },
     error (err) {
