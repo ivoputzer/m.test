@@ -19,7 +19,7 @@ function rendererFor (label) {
   return err => {
     const elapsed = Date.now() - timestamp
     if (err) {
-      console.error('✘ %s (%dms)', label, elapsed)
+      console.error('\x1b[31m✘\x1b[0m: %s (%dms)', label, elapsed)
       if (err.name === 'TypeError') {
         console.error(err)
       } else {
@@ -27,7 +27,7 @@ function rendererFor (label) {
       }
       process.exitCode = 1
     } else {
-      console.log('✔ %s (%dms)', label, elapsed)
+      console.log('\x1b[32m✔\x1b[0m: %s (%dms)', label, elapsed)
     }
   }
 }
