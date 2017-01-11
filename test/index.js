@@ -8,6 +8,7 @@ test('runner works!', function (done) {
 
 // test('runner fails!', function (done) {
 //   ok(false)
+//   done()
 // })
 
 test('runner works async!', function (done) {
@@ -22,11 +23,11 @@ test('runner works async!', function (done) {
 //   }, 0, done)
 // })
 
-test('runner works with implicit done fn!', function () {
+test('runner works with implicit done!', function () {
   ok(true)
 })
 
-// test('runner fails with implicit done fn!', function () {
+// test('runner fails with implicit done!', function () {
 //   ok(false)
 // })
 
