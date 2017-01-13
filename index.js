@@ -27,7 +27,11 @@ function doneFor (label) {
     if (err) {
       process.exitCode = 1
       console.log('\x1b[31m✘\x1b[0m %s (%dms)', label, elapsed())
-      console.error(err)
+      if (err.name === 'TypeError') {
+        console.error(err)
+      } else {
+        console.error('  %s : %s', err.name, err.message)
+      }
     } else {
       console.log('\x1b[32m✔\x1b[0m %s (%dms)', label, elapsed())
     }
