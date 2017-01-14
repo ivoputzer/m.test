@@ -1,5 +1,5 @@
 const {ok} = require('assert')
-const {test} = require('..')
+const {test, test: describe, test: it} = require('..')
 
 test('runner works!', function (done) {
   ok(true)
@@ -43,4 +43,17 @@ test('runner fails with exit-code', function (done) {
     console.log = _log
     console.error = _error
   }, 0, done, ok)
+})
+
+describe('label 3', function () {
+  describe('label 3.1', function () {
+    describe('label 3.1.1', function () {
+      it('label 3.1.1.1', function () {
+        ok(true)
+      })
+    })
+    it('label 3.1.2', function () {
+      ok(false)
+    })
+  })
 })
