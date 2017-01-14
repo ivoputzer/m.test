@@ -1,28 +1,36 @@
 const queue = []
-const push = (label, fn) => queue.push({label, fn, indent: 0})
+const push = (label, fn) => queue.push({label, fn, parent: null})
 
 process.once('beforeExit', next)
 
 function next (err) {
   if (queue.length === 0) return err
-  const [current, ...pending] = queue; queue.length = 0
-  const tick = nextTickFor(current, pending)
+  const context = queue.shift()
+  const tick = nextTickFor(context, queue)
   try {
-    current.fn(tick)
-    if (current.fn.length === 0) tick(null)
+    context.fn(tick)
+    if (context.fn.length === 0) tick(null)
   } catch (err) {
     tick(err)
   }
-  function nextTickFor (item, pending) {
+
+  function nextTickFor (context, pending) {
+    const length = pending.length
     return function tick (err) {
-      if (queue.length === 0) { // is test
-        console.log('[%s] %s (%d)', err ? '✘' : '✔', item.label, item.indent)
+      let indent = Array(countParents(context)).fill('  ').join('')
+      if (pending.length > length) { // is context
+        pending.unshift(...pending.splice(length).map((c) => Object.assign(c, {parent: context})))
+        console.log('%s%s', indent, context.label)
       } else { // is context
-        console.log('%s (%s)', item.label, item.indent)
+        console.log('%s%s %s', indent, err ? '✘' : '✔', context.label)
       }
       // console.dir(queue)
-      queue.push(...pending)
+      // queue.push(...pending)
       next(err)
+    }
+    function countParents (context, count = 0) {
+      if (context.parent === null) return count
+      return countParents(context.parent, ++count)
     }
   }
 }
