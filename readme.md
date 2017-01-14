@@ -41,4 +41,15 @@ test('description', function (done) {
 })
 ```
 
-[view more](https://github.com/ivoputzer/m.test/blob/master/test/index.js)
+#### recursive usage
+```javascript
+const {test: describe, test: it} = require('m.test')
+
+describe('context', function(){
+  it('works!', function (done) {
+    setTimeout(() => done(null), 0)  
+  })
+})
+```
+
+[view more](https://github.com/ivoputzer/m.test/tree/master/test)
