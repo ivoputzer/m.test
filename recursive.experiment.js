@@ -1,48 +1,33 @@
 const queue = []
-let current = null
-
-// final api
-// exports.m = require(`../package.json`)
-// exports.test =
-// exports.push =
-// exports.it =
-// exports.describe =
-// exports.context =
-// exports.m.test = (label, fn) => queue.push({label, fn})
-
-const push = (label, fn) => {
-  queue.push({label, fn})
-}
+const push = (label, fn) => queue.push({label, fn, indent: 0})
 
 process.once('beforeExit', next)
 
-function next () {
-  if (queue.length === 0) return
-  const {label, fn} = queue.shift()
-  const pending = queue.length
-  const done = doneFor({pending})
+function next (err) {
+  if (queue.length === 0) return err
+  const [current, ...pending] = queue; queue.length = 0
+  const tick = nextTickFor(current, pending)
   try {
-    // const context = {}
-    fn(done)
-    if (fn.length === 0) done(null)
+    current.fn(tick)
+    if (current.fn.length === 0) tick(null)
   } catch (err) {
-    done(err)
+    tick(err)
   }
-
-  function doneFor ({pending}) {
-    return function (err) {
-      if (queue.length - pending > 0) {
-        queue.unshift(...queue.splice(pending - queue.length))
+  function nextTickFor (item, pending) {
+    return function tick (err) {
+      if (queue.length === 0) { // is test
+        console.log('[%s] %s (%d)', err ? '✘' : '✔', item.label, item.indent)
+      } else { // is context
+        console.log('%s (%s)', item.label, item.indent)
       }
-      const symbol = err ? '✘' : '✔'
-      console.log('[%s] %s', symbol, label)
-      next()
+      // console.dir(queue)
+      queue.push(...pending)
+      next(err)
     }
   }
 }
 
 const {ok} = require('assert')
-
 push('label 0', function () {
   push('label 0.1', function () {
     ok(true)
@@ -51,7 +36,6 @@ push('label 0', function () {
     ok(false)
   })
 })
-
 push('label async 1', function () {
   push('label async 1.1', function (done) {
     setTimeout(() => {
@@ -69,12 +53,21 @@ push('label async 1', function () {
     }, 100)
   })
 })
-
 push('label 2', function () {
   push('label 2.1', function () {
     ok(true)
   })
   push('label 2.2', function () {
     ok(false)
+  })
+})
+push('label 3', function () {
+  push('label 3.1', function () {
+    push('label 3.1.1', function () {
+      ok(true)
+    })
+    push('label 3.1.2', function () {
+      ok(false)
+    })
   })
 })
