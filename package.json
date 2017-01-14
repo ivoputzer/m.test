@@ -11,7 +11,7 @@
     "node": ">5"
   },
   "scripts": {
-    "test": "node test",
+    "test": "ls test | xargs -n 1 -P 1 -I {} node test/{}",
     "lint": "standard"
   },
   "repository": {
