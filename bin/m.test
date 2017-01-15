@@ -8,8 +8,7 @@ case $@ in
     exit 0
   ;;
   version|-v|--version)
-    cat $PWD/man/version.1
-    npm explore m.test -- npm version
+    echo $npm_package_version
     exit 0
   ;;
 esac
