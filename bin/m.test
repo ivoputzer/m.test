@@ -2,7 +2,7 @@
 
 set -e
 
-REQUIRE="../globals"
+MODULES="../globals"
 
 while [[ $# -gt 0 ]]; do
   flag="$1"
@@ -16,18 +16,18 @@ while [[ $# -gt 0 ]]; do
         exit 0
       ;;
       -p|--parallel)
-        PARALLEL="$2"
+        MAXPROCS="$2"
         shift
       ;;
       -r|--require)
-        REQUIRE="$REQUIRE $2"
+        MODULES="$MODULES $2"
         shift
       ;;
       *)
-        SUITE="$SUITE $1"
+        PATHS="$PATHS $1"
       ;;
   esac
   shift
 done
 
-find ${SUITE:-test} -type f | xargs -n 1 -P ${PARALLEL:-1} node -r $REQUIRE
+find ${PATHS:-test} -type f | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
