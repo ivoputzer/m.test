@@ -4,7 +4,7 @@ set -e
 
 case $@ in
   help|-h|--help)
-    cat $PWD/man/help.1
+    cat $PWD/man/m.test.1
     exit 0
   ;;
   version|-v|--version)

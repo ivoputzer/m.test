@@ -7,7 +7,7 @@
   "keywords": ["m.icro", "test", "async", "recursive", "assert"],
   "main": "index.js",
   "bin": "bin/m.test",
-  "man": "man/help.1",
+  "man": "man/m.test.1",
   "engineStrict": true,
   "engines": {
     "node": ">5"
