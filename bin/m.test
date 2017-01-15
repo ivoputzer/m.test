@@ -2,15 +2,26 @@
 
 set -e
 
-case $@ in
-  help|-h|--help)
-    cat $PWD/man/m.test.1
-    exit 0
-  ;;
-  version|-v|--version)
-    echo $npm_package_version
-    exit 0
-  ;;
-esac
+while [[ $# -gt 0 ]]; do
+  flag="$1"
+  case $flag in
+      help|-h|--help)
+        cat $PWD/man/m.test.1
+        exit 0
+      ;;
+      version|-v|--version)
+        node -pe "require('./package.json').version"
+        exit 0
+      ;;
+      -p|--parallel)
+        PARALLEL="$2"
+        shift
+      ;;
+      *)
+        SUITE="$SUITE $1"
+      ;;
+  esac
+  shift
+done
 
-find ${@:-test} -type f | xargs -n 1 node --require ../globals
+find ${SUITE:-test} -type f | xargs -n 1 -P ${PARALLEL:-1} node --require ../globals
