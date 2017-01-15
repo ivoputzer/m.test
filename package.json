@@ -1,17 +1,20 @@
 {
   "name": "m.test",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "test framework from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "keywords": ["m.icro", "test", "async", "recursive", "assert"],
   "main": "index.js",
+  "bin": "bin/m.test",
+  "man": "man/help.1",
   "engineStrict": true,
   "engines": {
     "node": ">5"
   },
   "scripts": {
-    "test": "ls test | xargs -n 1 -P 1 -I {} node test/{}",
+    "node": "node",
+    "test": "$npm_package_bin_m_test",
     "lint": "standard"
   },
   "repository": {
@@ -24,5 +27,10 @@
   },
   "devDependencies": {
     "standard": "^8.6.0"
+  },
+  "standard": {
+    "globals": [
+      "test"
+    ]
   }
 }

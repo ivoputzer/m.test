@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+set -e
+
+case $@ in
+  help|-h|--help)
+    cat $PWD/man/help.1
+    exit 0
+  ;;
+  version|-v|--version)
+    cat $PWD/man/version.1
+    npm explore m.test -- npm version
+    exit 0
+  ;;
+esac
+
+find ${@:-test} -type f | xargs -n 1 node --require ../globals
