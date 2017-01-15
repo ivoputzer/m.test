@@ -1,6 +1,6 @@
 {
   "name": "m.test",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "test framework from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
@@ -14,8 +14,7 @@
   },
   "scripts": {
     "node": "node",
-    "test": "$npm_package_bin_m_test",
-    "lint": "standard"
+    "test": "$npm_package_bin_m_test"
   },
   "repository": {
     "type": "git",
@@ -24,9 +23,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ivoputzer/m.test/issues"
-  },
-  "devDependencies": {
-    "standard": "^8.6.0"
   },
   "standard": {
     "globals": [
