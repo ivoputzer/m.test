@@ -2,6 +2,8 @@
 
 set -e
 
+REQUIRE="../globals"
+
 while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
@@ -17,6 +19,10 @@ while [[ $# -gt 0 ]]; do
         PARALLEL="$2"
         shift
       ;;
+      -r|--require)
+        REQUIRE="$REQUIRE $2"
+        shift
+      ;;
       *)
         SUITE="$SUITE $1"
       ;;
@@ -24,4 +30,4 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-find ${SUITE:-test} -type f | xargs -n 1 -P ${PARALLEL:-1} node --require ../globals
+find ${SUITE:-test} -type f | xargs -n 1 -P ${PARALLEL:-1} node -r $REQUIRE
