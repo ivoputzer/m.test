@@ -1,4 +1,4 @@
 const {assign} = Object
 
-assign(exports, require('m.test'))
+assign(exports, require('.'))
 assign(global, exports)
