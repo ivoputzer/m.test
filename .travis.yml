@@ -5,3 +5,11 @@ node_js:
 before_install:
 - npm i -g standard
 - standard
+deploy:
+  provider: npm
+  email: ivo.putzer@gmail.com
+  on:
+    repo: ivoputzer/m.test
+    branch: master
+  api_key:
+    secure: onMl37Y8Ed7h3cSqK5qNKgMdBX+T6pyERzGTkwmFobGIrUEKzWlKnCgORFP8A3jjtxLkjQRw5z78kgakxRyMraS8MqfeJ/tKWKK/FaZfjApBgF5ZlRrCM2uFq325EBi4N48EbCB7FoCJ7AEBBb56MIoGl5mQbD5nyR9AIPV8CkN2+bvlhRFlL+FUbMapM6q7z7giLkgFICWZDf5hHRcbNtY7S2TFCBcpiUe+T/62UyEDP8xG8NlZHgHxN5L28eN3jEBZpQmQ9c5BKuJ8BhnhY+83vLimPWzW1Fbf/yBUfbooZ39pzWcaCH9hHUnjnvGJglZ2qUvxX8bKF4ovsHTuSb1Wip1ClBvzh+LwkXw0mqn9pAOdMA+oNRF2zGvdafJYsM4eqOUszCC8d9Ky35abkGVhdJJ0V79T3mTkzZoB8bNSxcZQh8ignHRlcOdlTAKhBE7+gyv2uzq4fVyyfoT3gzm3PhW2TBcqpasW2iuuVYgvLeHAwUXeMUqzWumO9vEKwniggscggcYGs6nswhsjxQ+6nxUQN6mMIrbq2EpGo93U6zdSreUPi/L+anlS05EBZOOaZRCuiVqgZnrKnYlEXjnkWL2fQ0mclUo5oyMpwEvsyCkqa4WZvxyPnt9J1HPr5xucGevnuDm53CmF0PP0iiWlyeKZ9rcrNtwVaGpbbIs=
