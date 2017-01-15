@@ -20,6 +20,17 @@ test files are run by simply passing them to [node](https://nodejs.org). for a g
 ```sh
 node test
 ```
+
+#### cli
+
+more utilities to run your suites are available through the cli. if no files are given they will be looked up from `cwd `'s `test` folder recursively.
+
+```sh
+m.test [options] [files]
+```
+
+further instructions can be accessed via `--help` flag and [man-pages](https://github.com/ivoputzer/m.test/tree/master/man) by executing either `m.test --help` or `man m.test` within your shell.
+
 ---
 
 #### sync usage
