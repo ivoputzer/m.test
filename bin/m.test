@@ -2,6 +2,7 @@
 
 set -e
 
+NAME="m.test"
 MODULES="../globals"
 PATTERN="*.js"
 
@@ -9,14 +10,15 @@ while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
       help|-h|--help)
-        sed '1,8d; $d' $PWD/man/m.test.1\
-          | sed -e 's/SYNOPSIS/  Usage:/g'\
-          | sed -e 's/OPTIONS/  Options:/g'\
-          | sed -e 's/COMMANDS/  Commands:/g'
+      cat $(man $NAME -w) \
+        | sed '1,8d; $d' \
+        | sed -e 's/SYNOPSIS/  Usage:/g' \
+        | sed -e 's/OPTIONS/  Options:/g' \
+        | sed -e 's/COMMANDS/  Commands:/g'
         exit 0
       ;;
       version|-v|--version)
-        node -pe "require('$PWD/package.json').version"
+        npm info $NAME version
         exit 0
       ;;
       -p|--parallel)
@@ -33,7 +35,6 @@ while [[ $# -gt 0 ]]; do
       ;;
       *)
         FILES="$FILES $1"
-        echo $FILES
       ;;
   esac
   shift
