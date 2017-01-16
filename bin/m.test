@@ -38,4 +38,4 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-find ${PATHS:-test} -type f | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
+find ${PATHS:-test} -type f -iname $PATTERN | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
