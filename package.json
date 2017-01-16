@@ -30,12 +30,12 @@
   "bugs": {
     "url": "https://github.com/ivoputzer/m.test/issues"
   },
+  "devDependencies": {
+    "standard": "^8.6.0"
+  },
   "standard": {
     "globals": [
       "test"
     ]
-  },
-  "devDependencies": {
-    "standard": "^8.6.0"
   }
 }
