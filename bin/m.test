@@ -3,14 +3,15 @@
 set -e
 
 NAME="m.test"
-MODULES="../globals"
+PACKAGE=$(dirname $(dirname $(node -pe "require('fs').realpathSync('$0')")))
+MODULES="$PACKAGE/globals"
 PATTERN="*.js"
 
 while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
       help|-h|--help)
-      cat $(man $NAME -w) \
+      cat $PACKAGE/man/$NAME.1 \
         | sed '1,8d; $d' \
         | sed -e 's/SYNOPSIS/  Usage:/g' \
         | sed -e 's/OPTIONS/  Options:/g' \
@@ -18,7 +19,7 @@ while [[ $# -gt 0 ]]; do
         exit 0
       ;;
       version|-v|--version)
-        npm info $NAME version
+        node -pe "require('$PACKAGE/package.json').version"
         exit 0
       ;;
       -p|--parallel)
