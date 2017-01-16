@@ -63,4 +63,29 @@ describe('context', function(){
 })
 ```
 
+#### beforeEach/afterEach usage
+```javascript
+test('description', function (done) {
+  done(null)
+})
+beforeEach(done => setup(done))
+beforeEach(done => teardown(done))
+```
+
+it is important to call `beforeEach` and `afterEach` hooks after `test` functions themselves. when using hooks within nested suites consider their contextual binding.
+
+```javascript
+test('description 1', function () {
+  test('description 1.1', Function.prototype)
+  test('description 1.2', Function.prototype)
+  beforeEach(done => setup(done))
+  beforeEach(done => teardown(done))
+})
+test('description 2', function () {
+  test('description 2.1', Function.prototype)
+  test('description 2.2', Function.prototype)
+})
+```
+_(in the example above hooks would be called for `1.1` e `1.2`)_
+
 [view more](https://github.com/ivoputzer/m.test/tree/master/test)

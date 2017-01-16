@@ -1,8 +1,55 @@
-exports.test = (label, fn) => push({label, fn})
-
 process.once('beforeExit', next)
 
 const queue = []
+
+exports.test = (label, fn) => push({label, fn})
+
+exports.beforeEach = (before, {assign} = Object) => {
+  queue.map(context => {
+    const fn = context.fn
+    return assign(context, {
+      fn (done) {
+        try {
+          before()
+          fn(done)
+          if (fn.length === 0) done(null)
+        } catch (err) {
+          done(err)
+        }
+      }
+    })
+  })
+}
+
+exports.afterEach = (after, {assign} = Object) => {
+  queue.map(context => {
+    const fn = context.fn
+    return assign(context, {
+      fn (done) {
+        try {
+          fn((err) => {
+            try {
+              after(() => done(err))
+              if (after.length === 0) done(err)
+            } catch (err) {
+              done(err)
+            }
+          })
+          if (fn.length === 0) {
+            try {
+              after(done)
+              if (after.length === 0) done(null)
+            } catch (err) {
+              done(err)
+            }
+          }
+        } catch (err) {
+          done(err)
+        }
+      }
+    })
+  })
+}
 
 function push () {
   queue.push(...arguments)
