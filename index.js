@@ -56,7 +56,7 @@ function push () {
 }
 
 function next (err) {
-  if (err || queue.length === 0) return err
+  if (queue.length === 0) return err
   const {fn, done} = shift(queue)
   try {
     queue.length = 0
