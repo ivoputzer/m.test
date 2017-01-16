@@ -3,6 +3,7 @@
 set -e
 
 MODULES="../globals"
+PATTERN="*/*.js"
 
 while [[ $# -gt 0 ]]; do
   flag="$1"
@@ -24,6 +25,10 @@ while [[ $# -gt 0 ]]; do
       ;;
       -r|--require)
         MODULES="$MODULES $2"
+        shift
+      ;;
+      -g|--grep)
+        PATTERN="$2"
         shift
       ;;
       *)
