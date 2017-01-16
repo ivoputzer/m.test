@@ -10,7 +10,7 @@
   "man": "man/m.test.1",
   "engineStrict": true,
   "engines": {
-    "node": ">5"
+    "node": ">=6"
   },
   "scripts": {
     "node": "node",
