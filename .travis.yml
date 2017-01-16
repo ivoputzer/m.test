@@ -5,6 +5,8 @@ node_js:
 before_install:
 - npm i -g standard
 - standard
+install:
+- NODE_ENV=production npm i
 deploy:
   provider: npm
   email: ivo.putzer@gmail.com

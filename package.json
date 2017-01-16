@@ -4,7 +4,13 @@
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "test runner from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
-  "keywords": ["m.icro", "test", "async", "recursive", "assert"],
+  "keywords": [
+    "m.icro",
+    "test",
+    "async",
+    "recursive",
+    "assert"
+  ],
   "main": "index.js",
   "bin": "bin/m.test",
   "man": "man/m.test.1",
@@ -28,5 +34,8 @@
     "globals": [
       "test"
     ]
+  },
+  "devDependencies": {
+    "standard": "^8.6.0"
   }
 }
