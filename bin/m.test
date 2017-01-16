@@ -8,7 +8,10 @@ while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
       help|-h|--help)
-        cat $PWD/man/m.test.1
+        sed '1,8d; $d' man/m.test.1\
+          | sed -e 's/SYNOPSIS/  Usage:/g'\
+          | sed -e 's/OPTIONS/  Options:/g'\
+          | sed -e 's/COMMANDS/  Commands:/g'
         exit 0
       ;;
       version|-v|--version)
