@@ -3,7 +3,7 @@
 set -e
 
 MODULES="../globals"
-PATTERN="*/*.js"
+PATTERN="*.js"
 
 while [[ $# -gt 0 ]]; do
   flag="$1"
@@ -32,10 +32,11 @@ while [[ $# -gt 0 ]]; do
         shift
       ;;
       *)
-        PATHS="$PATHS $1"
+        FILES="$FILES $1"
+        echo $FILES
       ;;
   esac
   shift
 done
 
-find ${PATHS:-test} -type f -iname $PATTERN | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
+find ${FILES:-test} -type f -iname "$PATTERN" | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
