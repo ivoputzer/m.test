@@ -27,7 +27,7 @@ while [[ $# -gt 0 ]]; do
         shift
       ;;
       -r|--require)
-        MODULES="$MODULES $2"
+        MODULES="$MODULES -r $2"
         shift
       ;;
       -g|--grep)
