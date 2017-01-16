@@ -1,18 +1,39 @@
+M.TEST(1)            User Manuals M.TEST(1)            M.TEST(1)
 
-  Usage m.test [options] [files]
+NAME
+    m.test - test runner from the m.icro series.
 
-  Commands
+SYNOPSIS
+    m.test [options] [files]
 
-    help                     output usage information
-    version                  output the version number
+DESCRIPTION
+    a test runner inspired by simplicity, written to kickstart
+    the m.icro series with solid roots!
 
-  Options
+OPTIONS
+    -h, --help
+      outputs usage information.
 
-    -h, --help                 output usage information.
-    -v, --version              output the version number.
-    -p, --parallel "maxprocs"  parallel mode: run at most `maxprocs`
-                               invocations of suites at once.
-    -r, --require "module"     preload  the  specified  module at startup.
-                               follows `require` module resolution rules.
-                               module may  be either  a  path to a file,
-                               or a node module name.
+    -v, --version
+      outputs version number.
+
+    -p, --parallel "maxprocs"
+      run at most `maxprocs` invocations of suites at once.
+
+    -r, --require "module"
+      preload  the  specified module at startup. module may be
+      either a path to a file or a node module name.
+      follows `require` module resolution rules.
+
+    -g, --grep "pattern"
+      true if the last component of the pathname being examined
+      matches the pattern. the match is case insensitive.
+
+COMMANDS
+    m.test help
+      outputs usage information.
+
+    m.test version
+      outputs version number.
+
+M.TEST(1)      https://github.com/ivoputzer/m.test     M.TEST(1)
