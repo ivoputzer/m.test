@@ -2,21 +2,13 @@ const {ok} = require('assert')
 const {test} = require('..')
 
 test('runner works async!', function (done) {
-  setTimeout(function (done) {
-    done()
-  }, 0, done)
+  setTimeout(done, 0)
 })
 
 // test('runner fails async!', function (done) {
-//   setTimeout(function (done) {
-//     done(Error.prototype)
-//   }, 0, done)
+//   setTimeout(() => done(Error.prototype), 0)
 // })
 
-test('runner works with implicit async done!', function () {
-  ok(true)
+test('runner fails async with implicit done!', function () {
+  setTimeout(() => ok(false), 0)
 })
-
-// test('runner fails with implicit async done!', function () {
-//   ok(false)
-// })
