@@ -69,7 +69,7 @@ test('description', function (done) {
   done(null)
 })
 beforeEach(done => setup(done))
-beforeEach(done => teardown(done))
+afterEach(done => teardown(done))
 ```
 
 it is important to call `beforeEach` and `afterEach` hooks after `test` functions themselves. when using hooks within nested suites consider their contextual binding.
@@ -79,7 +79,7 @@ test('description 1', function () {
   test('description 1.1', Function.prototype)
   test('description 1.2', Function.prototype)
   beforeEach(done => setup(done))
-  beforeEach(done => teardown(done))
+  afterEach(done => teardown(done))
 })
 test('description 2', function () {
   test('description 2.1', Function.prototype)
