@@ -1,6 +1,6 @@
 {
   "name": "m.test",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "test runner from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
@@ -43,9 +43,7 @@
     "man": "man"
   },
   "dependencies": {
-    "standard": "^8.6.0"
   },
   "devDependencies": {
-    "mocha": "^3.2.0"
   }
 }
