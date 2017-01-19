@@ -52,18 +52,24 @@ function push () {
   queue.push(...arguments)
 }
 
-function next (err) {
-  if (queue.length === 0) return err
+function next () {
+  if (queue.length === 0) return
   const {fn, done} = shift(queue)
+  const handle = trap(done)
   try {
     queue.length = 0
-    process.on('uncaughtException', err => {
-      process.removeListener('uncaughtException', done.bind(null, err))
-    })
-    fn(done)
-    if (fn.length === 0) done(null)
+    fn(handle)
+    if (fn.length === 0) handle(null)
   } catch (err) {
-    done(err)
+    handle(err)
+  }
+
+  function trap () {
+    process.once('uncaughtException', done)
+    return (err) => {
+      process.removeListener('uncaughtException', done)
+      done(err)
+    }
   }
 }
 
