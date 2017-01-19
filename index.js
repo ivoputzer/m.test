@@ -1,6 +1,7 @@
 process.once('beforeExit', next)
 
 const queue = []
+
 exports.test = (label, fn) => push({label, fn})
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
@@ -63,10 +64,9 @@ function next () {
   } catch (err) {
     handle(err)
   }
-
-  function trap () {
+  function trap (done) {
     process.once('uncaughtException', done)
-    return (err) => {
+    return (err = null) => {
       process.removeListener('uncaughtException', done)
       done(err)
     }
