@@ -1,7 +1,5 @@
 process.once('beforeExit', next)
-
 const queue = []
-
 exports.test = (label, fn) => push({label, fn})
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
@@ -48,11 +46,9 @@ exports.afterEach = (after, {assign} = Object) => {
     })
   })
 }
-
 function push () {
   queue.push(...arguments)
 }
-
 function next () {
   if (queue.length === 0) return
   const {fn, done} = shift(queue)
@@ -72,7 +68,6 @@ function next () {
     }
   }
 }
-
 function shift ([context, ...pending]) {
   const {elapsed} = timerFor(context)
   return {
@@ -100,18 +95,15 @@ function shift ([context, ...pending]) {
     fn: context.fn
   }
 }
-
 function indentFor (context, length = 0) {
   if (context.parent === undefined) {
     return Array.from({length}).fill('  ').join('')
   }
   return indentFor(context.parent, ++length)
 }
-
 function bindTo (parent, {assign} = Object) {
   return (context) => assign(context, {parent})
 }
-
 function timerFor (context, initial = Date.now()) {
   return {
     elapsed () {

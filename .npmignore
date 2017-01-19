@@ -1,4 +1,5 @@
 test/
-
+todo/
 .travis.yml
-readme.md
+*.log
+*.tgz
