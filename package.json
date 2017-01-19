@@ -12,8 +12,12 @@
     "assert"
   ],
   "main": "index.js",
-  "bin": "bin/m.test",
-  "man": "man/m.test.1",
+  "bin": {
+    "m.test": "bin/m.test"
+  },
+  "man": [
+    "man/m.test.1"
+  ],
   "engineStrict": true,
   "engines": {
     "node": ">=6"
@@ -34,5 +38,14 @@
     "globals": [
       "test"
     ]
+  },
+  "directories": {
+    "man": "man"
+  },
+  "dependencies": {
+    "standard": "^8.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
   }
 }
