@@ -1,3 +1,4 @@
+process.setMaxListeners(0)
 process.once('beforeExit', next)
 const queue = []
 exports.test = (label, fn) => push({label, fn})
