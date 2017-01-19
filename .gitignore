@@ -1,4 +1,6 @@
 node_modules/
+todo/
+lib/
 
-npm-debug.log
-*.todo
+*.log
+*.tgz
