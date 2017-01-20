@@ -1,9 +1,9 @@
 const {ok} = require('assert')
 
 test('module/exports', function () {
-  const exports = require.main.require.call(require, '.')
+  const exports = require('../..')
 
-  test('exports a test method!', function () {
+  test('exports `test` property', function () {
     ok(exports.hasOwnProperty('test'))
   })
 })
