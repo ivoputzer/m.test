@@ -6,10 +6,15 @@
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "keywords": [
     "m.icro",
+    "assert",
+    "expect",
+    "should",
     "test",
+    "sync",
     "async",
     "recursive",
-    "assert"
+    "beforeEach",
+    "afterEach"
   ],
   "main": "index.js",
   "bin": {
