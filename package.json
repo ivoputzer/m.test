@@ -1,6 +1,6 @@
 {
   "name": "m.test",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "test runner from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
@@ -19,7 +19,8 @@
   ],
   "main": "index.js",
   "bin": {
-    "m.test": "bin/m.test"
+    "m.test": "bin/m.test",
+    "mtest": "bin/m.test"
   },
   "man": [
     "man/m.test.1"
