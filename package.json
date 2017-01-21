@@ -1,6 +1,6 @@
 {
   "name": "m.test",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "test runner from the m.icro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
@@ -13,6 +13,7 @@
     "sync",
     "async",
     "recursive",
+    "skip",
     "beforeEach",
     "afterEach"
   ],

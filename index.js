@@ -2,6 +2,7 @@ process.setMaxListeners(0)
 process.once('beforeExit', next)
 const queue = []
 exports.test = (label, fn) => push({label, fn})
+exports.test.skip = (label, fn) => push({label, fn: Function.prototype})
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
@@ -86,7 +87,11 @@ function shift ([context, ...pending]) {
             console.log('  %s%s', indent, err)
           }
         } else {
-          console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+          if (context.fn === Function.prototype) {
+            console.log('%s- %s', indent, context.label)
+          } else {
+            console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+          }
         }
       }
       queue.forEach(bindTo(context))

@@ -87,4 +87,11 @@ test('description 2', function () {
 ```
 _(in the example above hooks would be called for `1.1` e `1.2`)_
 
+#### skip usage
+```javascript
+test.skip('description', function () {
+  // this function will never be called
+})
+```
+
 [view more](https://github.com/ivoputzer/m.test/tree/master/test)
