@@ -2,7 +2,7 @@ process.setMaxListeners(0)
 process.once('beforeExit', next)
 const queue = []
 exports.test = (label, fn) => push({label, fn})
-exports.test.skip = (label, fn) => push({label, fn: Function.prototype})
+exports.test.skip = (label, fn, apply = true) => push({label, fn: apply ? Function.prototype : fn})
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
