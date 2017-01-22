@@ -102,6 +102,7 @@ function shift ([context, ...pending]) {
           console.log('%s\x1b[31m✘\x1b[0m %s (%dms)', indent, context.label, elapsed())
           if (err.name) {
             console.log('  %s\x1b[31m%s\x1b[0m', indent, err.name, err.message)
+            console.log(err.stack.toString().split('\n').splice(1).join('\n'))
           } else {
             console.log('  %s%s', indent, err)
           }
