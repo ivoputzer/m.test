@@ -134,7 +134,7 @@ test.skip('description', function () {
 })
 ```
 
-the [skip](#skip-modifier) modifier comes with an optional `switch` parameter which may disable the skip behavior according to what is provided.
+the [skip](#skip-modifier) modifier comes with an optional `switch` parameter that disables the skip behavior when the expression evaluates to truthy.
 
 ```javascript
 test.skip('description', function () {
