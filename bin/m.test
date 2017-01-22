@@ -1,12 +1,9 @@
 #!/usr/bin/env sh
-
 set -e
-
 NAME="m.test"
 PACKAGE=$(dirname $(dirname $(node -pe "require('fs').realpathSync('$0')")))
 MODULES="$PACKAGE/globals"
 PATTERN="*.js"
-
 while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
@@ -40,5 +37,4 @@ while [[ $# -gt 0 ]]; do
   esac
   shift
 done
-
 find ${FILES:-test} -type f -iname "$PATTERN" | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
