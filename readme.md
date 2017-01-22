@@ -134,12 +134,12 @@ test.skip('description', function () {
 })
 ```
 
-the [skip](#skip-modifier) modifier comes with an optional `switch` parameter that disables the skip behavior when the expression evaluates to truthy.
+the [skip](#skip-modifier) modifier comes with an optional `doSkip=true` parameter that enables/disables the skip behavior according to the expression:
 
 ```javascript
 test.skip('description', function () {
-  // this test will be skipped on the ci
-}, /CI/g.test(process.env.NODE_ENV))
+  // this test will be skipped when NODE_ENV=CI
+}, /CI/gi.test(process.env.NODE_ENV))
 ```
 
 #### timeout modifier
@@ -150,13 +150,11 @@ test.timeout('description', function () {
 }, 200)
 ```
 
-the [timeout](#timeout-modifier) modifier comes with an optional `switch` parameter that disables the timeout behavior when the expression evaluates to truthy.
+the [timeout](#timeout-modifier) modifier comes with an optional `doTimeout=true` parameter that enables/disables the timeout behavior according to the expression:
 
 ```javascript
 test.timeout('description', function () {
-  // this test will have a timeout only when run on the ci
+  // this test will have a timeout when NODE_ENV=CI
 }, 200, /CI/g.test(process.env.NODE_ENV))
 ```
-
-
 [view more](https://github.com/ivoputzer/m.test/tree/master/test)
