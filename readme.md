@@ -20,6 +20,12 @@ test files are run by simply passing them to [node](https://nodejs.org). for a g
 node test
 ```
 
+run the following one to enable [node's debugger](https://nodejs.org/api/debugger.html):
+
+```sh
+node debug test
+```
+
 #### cli
 
 more utilities to run your suites are available through the cli. if no files are given they will be looked up from `./test` recursively.
