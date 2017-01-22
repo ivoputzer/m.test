@@ -1,11 +1,11 @@
 {
   "name": "m.test",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
-  "description": "test runner from the m.icro series",
+  "description": "test runner from the m!cro series",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "keywords": [
-    "m.icro",
+    "m!cro",
     "m.test",
     "mtest",
     "assert",
