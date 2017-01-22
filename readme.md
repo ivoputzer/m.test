@@ -142,4 +142,21 @@ test.skip('description', function () {
 }, /CI/g.test(process.env.NODE_ENV))
 ```
 
+#### timeout modifier
+
+```javascript
+test.timeout('description', function () {
+  // this test will fail if it exceeds 200ms of execution
+}, 200)
+```
+
+the [timeout](#timeout-modifier) modifier comes with an optional `switch` parameter that disables the timeout behavior when the expression evaluates to truthy.
+
+```javascript
+test.timeout('description', function () {
+  // this test will have a timeout only when run on the ci
+}, 200, /CI/g.test(process.env.NODE_ENV))
+```
+
+
 [view more](https://github.com/ivoputzer/m.test/tree/master/test)
