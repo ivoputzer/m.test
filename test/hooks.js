@@ -1,18 +1,21 @@
 const {ok} = require('assert')
-const {beforeEach, afterEach, test} = require('..')
 
-test('hooks', function () {
+test('hooks:', function () {
   let beforeEachCalled, afterEachCalled
+
   test('before each hook has been called', function () {
     ok(beforeEachCalled)
   })
+
   test('after each hook has been called', function () {
     ok(afterEachCalled)
   })
-  beforeEach(function () {
+
+  beforeEach(() => {
     beforeEachCalled = true
   })
-  afterEach(function () {
+
+  afterEach(() => {
     afterEachCalled = true
   })
 })
