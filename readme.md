@@ -2,7 +2,7 @@
 
 [![travis](https://img.shields.io/travis/ivoputzer/m.test.svg?style=flat-square)](https://travis-ci.org/ivoputzer/m.test) [![node-api](https://img.shields.io/node/v/m.test.svg?style=flat-square)](https://nodejs.org/docs/v6.0.0/api) [![npm-version](https://img.shields.io/npm/v/m.test.svg?style=flat-square)](https://www.npmjs.com/package/m.test) [![npm-license](https://img.shields.io/npm/l/m.test.svg?style=flat-square)](https://spdx.org/licenses/MIT) [![npm-package-quality](http://npm.packagequality.com/shield/m.test.svg?style=flat-square)](http://packagequality.com/#?package=m.test) [![standard-js](https://img.shields.io/badge/standard-javascript-yellow.svg?style=flat-square)](http://standardjs.com/)
 
-`wip` test runner from the [m!cro](https://github.com/ivoputzer/m.cro#readme) series (~4kb).
+**[m(icro)](https://github.com/ivoputzer/m.cro#readme)[test](https://github.com/ivoputzer/m.test)** is a lightweight test runner for [node.js](https://nodejs.org/) written in es6+ (~4kb).
 
 #### install
 

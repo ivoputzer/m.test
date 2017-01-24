@@ -1,8 +1,8 @@
 {
   "name": "m.test",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
-  "description": "test runner from the m!cro series",
+  "description": "m(icro)test is a lightweight test runner for node.js written in es6+",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "keywords": [
     "m!cro",
