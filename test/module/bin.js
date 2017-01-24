@@ -18,4 +18,5 @@ test('module/bin', function () {
           : paths
     }, [])
   }
+  // todo: verify --require ../../globals
 })
