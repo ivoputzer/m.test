@@ -67,6 +67,9 @@ exports.afterEach = (after, {assign} = Object) => {
     })
   })
 }
+exports.reporter = () => { // pluggable #2, fyi #20
+  // summary #1
+}
 function push () {
   queue.push(...arguments)
 }
