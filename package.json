@@ -22,14 +22,11 @@
     "beforeEach",
     "afterEach"
   ],
-  "main": "index.js",
   "bin": {
     "m.test": "bin/m.test",
     "mtest": "bin/m.test"
   },
-  "man": [
-    "man/m.test.1"
-  ],
+  "main": "index.js",
   "engineStrict": true,
   "engines": {
     "node": ">=6"
@@ -38,20 +35,20 @@
     "node": "node",
     "test": "$npm_package_bin_m_test"
   },
+  "license": "MIT",
+  "man": [
+    "man/m.test.1"
+  ],
+  "bugs": {
+    "url": "https://github.com/ivoputzer/m.test/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivoputzer/m.test.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ivoputzer/m.test/issues"
   },
   "standard": {
     "globals": [
       "test", "beforeEach", "afterEach"
     ]
-  },
-  "directories": {
-    "man": "man"
   }
 }
