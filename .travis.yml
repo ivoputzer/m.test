@@ -6,7 +6,6 @@ node_js:
 - 6
 - 5
 - 4
-- 0
 before_install:
 - npm i standard babel-cli babel-preset-es2015
 - node_modules/.bin/standard
