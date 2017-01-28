@@ -5,7 +5,7 @@ test('asynchronous:', function () {
     setTimeout(done, 0)
   })
 
-  test('runner works with Promise', function (done) {
+  test('runner works with promise!', function (done) {
     let promise = new Promise(function (resolve, reject) {
       setTimeout(function () {
         resolve(true)
