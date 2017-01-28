@@ -91,13 +91,29 @@ function next () {
       done(err)
     }
   }
+  function shift ([context, ...pending]) {
+    const {toString} =  reporterFor(context)
+    return {
+      done (err) {
+        toString(err)
+        queue.forEach(bindTo(context))
+        push(...pending)
+        next(err)
+        function bindTo (parent, {assign} = Object) {
+          return (context) => assign(context, {parent})
+        }
+      },
+      fn: context.fn
+    }
+  }
 }
-function shift ([context, ...pending]) {
+
+function reporterFor (context) {
   const {elapsed} = timerFor(context)
   return {
-    done (err) {
+    toString (err) {
       const indent = indentFor(context)
-      if (queue.length > 0) { // context
+      if (!context.parent) { // context
         console.log('%s%s', indent, context.label)
       } else { // test
         if (err) {
@@ -117,26 +133,19 @@ function shift ([context, ...pending]) {
           }
         }
       }
-      queue.forEach(bindTo(context))
-      push(...pending)
-      next(err)
-    },
-    fn: context.fn
+    }
   }
-}
-function indentFor (context, length = 0) {
-  if (context.parent === undefined) {
-    return Array.from({length}).fill('  ').join('')
+  function indentFor (context, length = 0) {
+    if (context.parent === undefined) {
+      return Array.from({length}).fill('  ').join('')
+    }
+    return indentFor(context.parent, ++length)
   }
-  return indentFor(context.parent, ++length)
-}
-function bindTo (parent, {assign} = Object) {
-  return (context) => assign(context, {parent})
-}
-function timerFor (context, initial = Date.now()) {
-  return {
-    elapsed () {
-      return Date.now() - initial
+  function timerFor (context, initial = Date.now()) {
+    return {
+      elapsed () {
+        return Date.now() - initial
+      }
     }
   }
 }
