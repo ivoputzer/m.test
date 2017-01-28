@@ -4,16 +4,22 @@ git:
 node_js:
 - 7
 - 6
+- 5
+- 4
+- 0
 before_install:
-- npm i -g standard
-- standard
+- npm i standard babel-cli babel-preset-es2015
+- node_modules/.bin/standard
+- node_modules/.bin/babel ./ --out-dir ./ --ignore node_modules --presets es2015
 install:
 - NODE_ENV=production npm i
 deploy:
   provider: npm
+  skip_cleanup: true
   email: ivo.putzer@gmail.com
-  on:
-    repo: ivoputzer/m.test
-    branch: master
   api_key:
     secure: HPMJ9WXYGZTHoEc6iO8LfOQDNrUywGVuMMsF2X9mmrXGRfhAY8sqp6HsaX28JjtQyOoyoiyCrvT7+w6xKoi9nhWfmrKaWynBxUwJbq1rJQQGaOYtorSn9xvOPjG2glt4i7XQMwtnxzvWEthiMIBo01f12HEnK3Phu/cHKfMArM8tc7LO9Xh2sxLpEkYHOFJ83HhBcgFrKCuPVszG5QZCEAP1B31MbtFp/xs1WcwgrERP/f2PkFjK9TgCOcumQQ486jecwhKgxQ9Yly0TkPgvtmJlig806f7n7aiLF7UFaTi294JWTjSmSVf8cf54Kr31ov18aNgwmJDdwqq3JVZc8jRRMHCEippsvF+EUDB/JTizHD8t91qmdhlPk3Ok9rRub2/wrISKi1Kz6d2fx2nkGH572pNLRMdKLyVP3Uaci4Xa6cIof560hQ1ttU56WUP+pSU3NwXR9nnkCRdD6XRLUTkvQD4SUSglq1ZlhpoED7h9NFapI4R3lyqnoG39asq4zSEQ36YHtR0gO81FU0bShIxMriH0lnARcSKKaiKqojmxIFwIbkUPCbi+viZflmipJVZfXSTiKyfhPttrkg+71pWPEJRE15I9WnSmtfsR2PVjsKYJUDxzUz1hGDXCg9JAOsbi/I8ciO+40f34wJu4DOuXtSt/IqJNJPQeRjh9Mjs=
+  on:
+    repo: ivoputzer/m.test
+    tags: false
+    branch: master

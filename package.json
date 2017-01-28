@@ -27,7 +27,6 @@
     "mtest": "bin/m.test"
   },
   "main": "index.js",
-  "engineStrict": true,
   "engines": {
     "node": ">=6"
   },
