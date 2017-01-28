@@ -1,23 +1,15 @@
-// const {ok} = require('assert')
-const {test} = require('..')
+const {ok} = require('assert')
 
-test('async', function () {
-  test('runner works async!', function (done) {
-    setTimeout(() => done(), 0)
+test('asynchronous:', function () {
+  test('runner works!', function (done) {
+    setTimeout(done, 0)
   })
 
-  // test('runner fails (1) async!', function (done) {
-  //   setTimeout(() => done(Error.prototype), 0)
-  // })
-  //
-  // test('runner fails (2) async!', function (done) {
-  //   setTimeout(() => done(Error.prototype), 0)
-  // })
-  //
-  // test('runner fails async with implicit done!', function (done) {
-  //   setTimeout(() => {
-  //     ok(false)
-  //     done()
-  //   }, 0)
-  // })
+  test.skip('runner fails!', function (done) {
+    setTimeout(done.bind(null, {name: 'AssertionError', message: '', stack: new Error().stack}), 0)
+  }, !process.env.DEBUG)
+
+  test.skip('runner fails from exception!', function (done) {
+    setTimeout(() => ok(false), 0)
+  }, !process.env.DEBUG)
 })

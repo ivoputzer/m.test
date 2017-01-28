@@ -1,6 +1,15 @@
-const {equal} = require('assert')
-const {test} = require('../globals')
+const {ok} = require('assert')
 
-test('global variables have been set!', function () {
-  equal(global.test, test)
+test('globals:', function () {
+  test('exports `test` function!', function () {
+    ok(require('../globals').hasOwnProperty('test'))
+  })
+
+  test('exports `beforeEach` function!', function () {
+    ok(require('../globals').hasOwnProperty('beforeEach'))
+  })
+
+  test('exports `afterEach` function!', function () {
+    ok(require('../globals').hasOwnProperty('afterEach'))
+  })
 })

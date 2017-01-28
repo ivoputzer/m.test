@@ -1,19 +1,31 @@
 {
   "name": "m.test",
-  "version": "0.0.27",
+  "version": "0.0.43",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
-  "description": "test runner from the m.icro series",
+  "description": "m(icro)test is a lightweight test runner for node.js written in es6+",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "keywords": [
-    "m.icro",
+    "m!cro",
+    "m.test",
+    "mtest",
+    "assert",
+    "expect",
+    "should",
+    "context",
+    "describe",
+    "it",
     "test",
+    "sync",
     "async",
     "recursive",
-    "assert"
+    "skip",
+    "beforeEach",
+    "afterEach"
   ],
   "main": "index.js",
   "bin": {
-    "m.test": "bin/m.test"
+    "m.test": "bin/m.test",
+    "mtest": "bin/m.test"
   },
   "man": [
     "man/m.test.1"
@@ -36,16 +48,10 @@
   },
   "standard": {
     "globals": [
-      "test"
+      "test", "beforeEach", "afterEach"
     ]
   },
   "directories": {
     "man": "man"
-  },
-  "dependencies": {
-    "standard": "^8.6.0"
-  },
-  "devDependencies": {
-    "mocha": "^3.2.0"
   }
 }

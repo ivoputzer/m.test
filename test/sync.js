@@ -1,12 +1,11 @@
 const {ok} = require('assert')
-const {test} = require('..')
 
-test('runner works!', function (done) {
-  ok(true)
-  done()
+test('synchronous:', function () {
+  test('runner works!', function () {
+    ok(true)
+  })
+
+  test.skip('runner fails!', function () {
+    ok(false)
+  }, !process.env.DEBUG)
 })
-
-// test('runner fails!', function (done) {
-//   ok(false)
-//   done()
-// })

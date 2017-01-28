@@ -1,5 +1,8 @@
 test/
 todo/
+lib/
+
 .travis.yml
+
 *.log
 *.tgz

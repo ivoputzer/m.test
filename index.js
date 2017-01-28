@@ -2,6 +2,26 @@ process.setMaxListeners(0)
 process.once('beforeExit', next)
 const queue = []
 exports.test = (label, fn) => push({label, fn})
+exports.test.skip = (label, fn, doSkip = true) => push({
+  label,
+  fn: doSkip ? Function.prototype : fn
+})
+exports.test.timeout = (label, fn, ms, doTimeout = true) => push({
+  label,
+  fn (done, timeoutError = null) {
+    try {
+      const error = new Error(`TimeoutError: ${ms}ms exceeded.`)
+      const timeout = setTimeout(doTimeout ? done : Function.prototype, ms, error)
+      fn((err) => {
+        clearTimeout(timeout)
+        if (!timeout._called || !doTimeout) done(err)
+      })
+      if (fn.length === 0) done(null)
+    } catch (err) {
+      done(err)
+    }
+  }
+})
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
@@ -82,11 +102,16 @@ function shift ([context, ...pending]) {
           console.log('%s\x1b[31m✘\x1b[0m %s (%dms)', indent, context.label, elapsed())
           if (err.name) {
             console.log('  %s\x1b[31m%s\x1b[0m', indent, err.name, err.message)
+            console.error(err.stack.toString().split('\n').splice(1).join('\n'))
           } else {
             console.log('  %s%s', indent, err)
           }
         } else {
-          console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+          if (context.fn === Function.prototype) {
+            console.log('%s- %s', indent, context.label)
+          } else {
+            console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+          }
         }
       }
       queue.forEach(bindTo(context))
