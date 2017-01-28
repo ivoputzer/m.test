@@ -70,6 +70,19 @@ test('done takes a error argument!', function (done) {
     done(err)
   }, 0)
 })
+
+test('runner works with Promise', function (done) {
+    let promise = new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        resolve(true)
+      }, 0)
+    })
+
+    promise.then(result => {
+      ok(result)
+      done()
+    })
+  })
 ```
 
 #### context usage
