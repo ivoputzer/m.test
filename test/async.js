@@ -18,7 +18,6 @@ test('asynchronous:', function () {
     })
   })
 
-
   test.skip('runner fails!', function (done) {
     setTimeout(done.bind(null, {name: 'AssertionError', message: '', stack: new Error().stack}), 0)
   }, !process.env.DEBUG)
