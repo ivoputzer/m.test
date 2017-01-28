@@ -1,5 +1,5 @@
 const {ok} = require('assert')
-const {lstatSync, constants: {X_OK}} = require('fs')
+const {lstatSync, constants: {X_OK} = {X_OK: 1}} = require('fs')
 
 test('module/bin', function () {
   test('package binaries contain `m.test`', function () {
