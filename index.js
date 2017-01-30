@@ -1,23 +1,22 @@
 process.setMaxListeners(0)
-
-process.once('beforeExit', next)
+const repoter = null
+process.once('beforeExit', () => shift(repoter))
 
 const queue = []
-
 exports.test = (label, fn) => push({label, fn})
 
 exports.test.skip = (label, fn, doSkip = true) => push({
-  label,
+  label: label,
   fn: doSkip ? Function.prototype : fn
 })
 
 exports.test.timeout = (label, fn, ms, doTimeout = true) => push({
-  label,
-  fn (done, timeoutError = null) {
+  label: label,
+  fn: function (done, timeoutError = null) {
     try {
       const error = new Error(`TimeoutError: ${ms}ms exceeded.`)
       const timeout = setTimeout(doTimeout ? done : Function.prototype, ms, error)
-      fn((err) => {
+      fn((err) => { // aint this just another wrap of fn in the end
         clearTimeout(timeout)
         if (!timeout._called || !doTimeout) done(err)
       })
@@ -35,7 +34,7 @@ exports.beforeEach = (before, {assign} = Object) => {
       fn (done) {
         try {
           before()
-          fn(done)
+          fn(done)  // aint this just another wrap of fn in the end
           if (fn.length === 0) done(null)
         } catch (err) {
           done(err)
@@ -51,7 +50,7 @@ exports.afterEach = (after, {assign} = Object) => {
     return assign(context, {
       fn (done) {
         try {
-          fn((err) => {
+          fn((err) => {  // aint this just another wrap of fn in the end
             try {
               after(() => done(err))
               if (after.length === 0) done(err)
@@ -79,14 +78,27 @@ exports.reporter = () => { // pluggable #2, fyi #20
   // summary #1
 }
 
-
 function push () {
   queue.push(...arguments)
 }
-function next () {
+function shift (repoter) {
   if (queue.length === 0) return
-  const {fn, done} = shift(queue)
-  const handle = trap(done)
+  const {fn, done} = (function ([context, ...pending]) {
+    const {toString} = reporterFor(context)
+    return {
+      done (err) {
+        toString(err)
+        queue.forEach(bindTo(context))
+        push(...pending)
+        shift(err)
+        function bindTo (parent, {assign} = Object) {
+          return (context) => assign(context, {parent})
+        }
+      },
+      fn: context.fn
+    }
+  })(queue)
+  const handle = trap(done) // move trap to shiftFn
   try {
     queue.length = 0
     fn(handle)
@@ -99,22 +111,6 @@ function next () {
     return (err = null) => {
       process.removeListener('uncaughtException', done)
       done(err)
-    }
-  }
-
-  function shift ([context, ...pending]) {
-    const {toString} = reporterFor(context)
-    return {
-      done (err) {
-        toString(err)
-        queue.forEach(bindTo(context))
-        push(...pending)
-        next(err)
-        function bindTo (parent, {assign} = Object) {
-          return (context) => assign(context, {parent})
-        }
-      },
-      fn: context.fn
     }
   }
 }
