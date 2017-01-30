@@ -1,11 +1,16 @@
 process.setMaxListeners(0)
+
 process.once('beforeExit', next)
+
 const queue = []
+
 exports.test = (label, fn) => push({label, fn})
+
 exports.test.skip = (label, fn, doSkip = true) => push({
   label,
   fn: doSkip ? Function.prototype : fn
 })
+
 exports.test.timeout = (label, fn, ms, doTimeout = true) => push({
   label,
   fn (done, timeoutError = null) {
@@ -22,6 +27,7 @@ exports.test.timeout = (label, fn, ms, doTimeout = true) => push({
     }
   }
 })
+
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
@@ -38,6 +44,7 @@ exports.beforeEach = (before, {assign} = Object) => {
     })
   })
 }
+
 exports.afterEach = (after, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
@@ -67,9 +74,12 @@ exports.afterEach = (after, {assign} = Object) => {
     })
   })
 }
+
 exports.reporter = () => { // pluggable #2, fyi #20
   // summary #1
 }
+
+
 function push () {
   queue.push(...arguments)
 }
@@ -91,8 +101,9 @@ function next () {
       done(err)
     }
   }
+
   function shift ([context, ...pending]) {
-    const {toString} =  reporterFor(context)
+    const {toString} = reporterFor(context)
     return {
       done (err) {
         toString(err)
