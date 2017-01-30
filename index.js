@@ -79,7 +79,6 @@ exports.reporter = () => { // pluggable #2, fyi #20
   // summary #1
 }
 
-
 function push () {
   queue.push(...arguments)
 }
@@ -125,26 +124,43 @@ function reporterFor (context) {
     toString (err) {
       const indent = indentFor(context)
       if (!context.parent) { // context
-        console.log('%s%s', indent, context.label)
+        // console.log('%s%s', indent, context.label)
       } else { // test
         if (err) {
           process.exitCode = 1
-          console.log('%s\x1b[31m✘\x1b[0m %s (%dms)', indent, context.label, elapsed())
-          if (err.name) {
-            console.log('  %s\x1b[31m%s\x1b[0m', indent, err.name, err.message)
-            console.error(err.stack.toString().split('\n').splice(1).join('\n'))
-          } else {
-            console.log('  %s%s', indent, err)
-          }
+          process.stdout.write('\x1b[31mE\x1b[0m')
         } else {
           if (context.fn === Function.prototype) {
-            console.log('%s- %s', indent, context.label)
+            process.stdout.write('s')
           } else {
-            console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+            process.stdout.write('\x1b[32m.\x1b[0m')
           }
         }
       }
     }
+    // toString (err) {
+    //   const indent = indentFor(context)
+    //   if (!context.parent) { // context
+    //     console.log('%s%s', indent, context.label)
+    //   } else { // test
+    //     if (err) {
+    //       process.exitCode = 1
+    //       console.log('%s\x1b[31m✘\x1b[0m %s (%dms)', indent, context.label, elapsed())
+    //       if (err.name) {
+    //         console.log('  %s\x1b[31m%s\x1b[0m', indent, err.name, err.message)
+    //         console.error(err.stack.toString().split('\n').splice(1).join('\n'))
+    //       } else {
+    //         console.log('  %s%s', indent, err)
+    //       }
+    //     } else {
+    //       if (context.fn === Function.prototype) {
+    //         console.log('%s- %s', indent, context.label)
+    //       } else {
+    //         console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+    //       }
+    //     }
+    //   }
+    // }
   }
   function indentFor (context, length = 0) {
     if (context.parent === undefined) {
