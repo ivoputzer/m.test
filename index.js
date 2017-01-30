@@ -32,13 +32,13 @@ exports.test.timeout = (label, testFn, msec, doTimeout = true, error = new Error
   })
 }
 
-exports.beforeEach = (before, {assign} = Object) => {
+exports.beforeEach = (beforeFn, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
     return assign(context, {
       fn (done) {
         try {
-          before()
+          beforeFn()
           fn(done) // aint this just another wrap of fn in the end
           if (fn.length === 0) done(null)
         } catch (err) {
@@ -49,7 +49,7 @@ exports.beforeEach = (before, {assign} = Object) => {
   })
 }
 
-exports.afterEach = (after, {assign} = Object) => {
+exports.afterEach = (afterFn, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
     return assign(context, {
@@ -57,16 +57,16 @@ exports.afterEach = (after, {assign} = Object) => {
         try {
           fn((err) => { // aint this just another wrap of fn in the end
             try {
-              after(() => done(err))
-              if (after.length === 0) done(err)
+              afterFn(() => done(err))
+              if (afterFn.length === 0) done(err)
             } catch (err) {
               done(err)
             }
           })
           if (fn.length === 0) {
             try {
-              after(done)
-              if (after.length === 0) done(null)
+              afterFn(done)
+              if (afterFn.length === 0) done(null)
             } catch (err) {
               done(err)
             }
