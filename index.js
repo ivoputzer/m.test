@@ -34,7 +34,7 @@ exports.beforeEach = (before, {assign} = Object) => {
       fn (done) {
         try {
           before()
-          fn(done)  // aint this just another wrap of fn in the end
+          fn(done) // aint this just another wrap of fn in the end
           if (fn.length === 0) done(null)
         } catch (err) {
           done(err)
@@ -50,7 +50,7 @@ exports.afterEach = (after, {assign} = Object) => {
     return assign(context, {
       fn (done) {
         try {
-          fn((err) => {  // aint this just another wrap of fn in the end
+          fn((err) => { // aint this just another wrap of fn in the end
             try {
               after(() => done(err))
               if (after.length === 0) done(err)
