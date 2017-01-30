@@ -1,31 +1,36 @@
-process.setMaxListeners(0)
-const repoter = null
-process.once('beforeExit', () => shift(repoter))
-
 const queue = []
-exports.test = (label, fn) => push({label, fn})
 
-exports.test.skip = (label, fn, doSkip = true) => push({
-  label: label,
-  fn: doSkip ? Function.prototype : fn
-})
+exports.test = (label, testFn) => {
+  queue.push({
+    label,
+    fn: testFn
+  })
+}
 
-exports.test.timeout = (label, fn, ms, doTimeout = true) => push({
-  label: label,
-  fn: function (done, timeoutError = null) {
-    try {
-      const error = new Error(`TimeoutError: ${ms}ms exceeded.`)
-      const timeout = setTimeout(doTimeout ? done : Function.prototype, ms, error)
-      fn((err) => { // aint this just another wrap of fn in the end
-        clearTimeout(timeout)
-        if (!timeout._called || !doTimeout) done(err)
-      })
-      if (fn.length === 0) done(null)
-    } catch (err) {
-      done(err)
+exports.test.skip = (label, testFn, doSkip = true) => {
+  queue.push({
+    label,
+    fn: doSkip ? Function.prototype : testFn
+  })
+}
+
+exports.test.timeout = (label, testFn, msec, doTimeout = true, error = new Error(`TimeoutError: ${msec}ms exceeded.`)) => {
+  queue.push({
+    label,
+    fn: (done) => {
+      try {
+        const timeout = setTimeout(doTimeout ? done : Function.prototype, msec, error)
+        testFn(err => {
+          clearTimeout(timeout)
+          if (!timeout._called || !doTimeout) done(err)
+        })
+        if (testFn.length === 0) done(null)
+      } catch (err) {
+        done(err)
+      }
     }
-  }
-})
+  })
+}
 
 exports.beforeEach = (before, {assign} = Object) => {
   queue.map(context => {
@@ -78,43 +83,6 @@ exports.reporter = () => { // pluggable #2, fyi #20
   // summary #1
 }
 
-function push () {
-  queue.push(...arguments)
-}
-function shift (repoter) {
-  if (queue.length === 0) return
-  const {fn, done} = (function ([context, ...pending]) {
-    const {toString} = reporterFor(context)
-    return {
-      done (err) {
-        toString(err)
-        queue.forEach(bindTo(context))
-        push(...pending)
-        shift(err)
-        function bindTo (parent, {assign} = Object) {
-          return (context) => assign(context, {parent})
-        }
-      },
-      fn: context.fn
-    }
-  })(queue)
-  const handle = trap(done) // move trap to shiftFn
-  try {
-    queue.length = 0
-    fn(handle)
-    if (fn.length === 0) handle(null)
-  } catch (err) {
-    handle(err)
-  }
-  function trap (done) {
-    process.once('uncaughtException', done)
-    return (err = null) => {
-      process.removeListener('uncaughtException', done)
-      done(err)
-    }
-  }
-}
-
 function reporterFor (context) {
   const {elapsed} = timerFor(context)
   return {
@@ -156,3 +124,38 @@ function reporterFor (context) {
     }
   }
 }
+
+process.setMaxListeners(0)
+process.once('beforeExit', function shift (repoter) {
+  if (queue.length === 0) return
+  const {fn, done} = (function ([context, ...pending]) {
+    const {toString} = reporterFor(context)
+    return {
+      done (err) {
+        toString(err)
+        queue.forEach(bindTo(context))
+        queue.push(...pending)
+        shift(err)
+        function bindTo (parent, {assign} = Object) {
+          return (context) => assign(context, {parent})
+        }
+      },
+      fn: context.fn
+    }
+  })(queue)
+  const handle = trap(done) // move trap to shiftFn
+  try {
+    queue.length = 0
+    fn(handle)
+    if (fn.length === 0) handle(null)
+  } catch (err) {
+    handle(err)
+  }
+  function trap (done) {
+    process.once('uncaughtException', done)
+    return (err = null) => {
+      process.removeListener('uncaughtException', done)
+      done(err)
+    }
+  }
+})
