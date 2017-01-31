@@ -12,9 +12,7 @@ test('module/bin', function () {
   })
   function binariesFor ({env}, {keys} = Object) {
     return keys(env).reduce((paths, bin) => {
-      return /npm_package_bin_/ig.test(bin)
-          ? [env[bin], ...paths]
-          : paths
+      return /npm_package_bin_/ig.test(bin) ? [env[bin], ...paths] : paths
     }, [])
   }
 })
