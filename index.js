@@ -79,11 +79,7 @@ exports.afterEach = (afterFn, {assign} = Object) => {
   })
 }
 
-exports.reporter = () => { // pluggable #2, fyi #20
-  // summary #1
-}
-
-function reporterFor (context) {
+exports.reporter = (context) => { // pluggable #2, fyi #20
   const {elapsed} = timerFor(context)
   return {
     toString (err) {
@@ -109,6 +105,7 @@ function reporterFor (context) {
         }
       }
     }
+    // summary #1
   }
   function indentFor (context, length = 0) {
     if (context.parent === undefined) {
@@ -129,7 +126,7 @@ process.setMaxListeners(0)
 process.once('beforeExit', function shift (repoter) {
   if (queue.length === 0) return
   const {fn, done} = (function ([context, ...pending]) {
-    const {toString} = reporterFor(context)
+    const {toString} = exports.reporter(context)
     return {
       done (err) {
         toString(err)
