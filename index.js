@@ -1,35 +1,45 @@
-process.setMaxListeners(0)
-process.once('beforeExit', next)
 const queue = []
-exports.test = (label, fn) => push({label, fn})
-exports.test.skip = (label, fn, doSkip = true) => push({
-  label,
-  fn: doSkip ? Function.prototype : fn
-})
-exports.test.timeout = (label, fn, ms, doTimeout = true) => push({
-  label,
-  fn (done, timeoutError = null) {
-    try {
-      const error = new Error(`TimeoutError: ${ms}ms exceeded.`)
-      const timeout = setTimeout(doTimeout ? done : Function.prototype, ms, error)
-      fn((err) => {
-        clearTimeout(timeout)
-        if (!timeout._called || !doTimeout) done(err)
-      })
-      if (fn.length === 0) done(null)
-    } catch (err) {
-      done(err)
+
+exports.test = (label, testFn) => {
+  queue.push({
+    label,
+    fn: testFn
+  })
+}
+
+exports.test.skip = (label, testFn, doSkip = true) => {
+  queue.push({
+    label,
+    fn: doSkip ? Function.prototype : testFn
+  })
+}
+
+exports.test.timeout = (label, testFn, msec, doTimeout = true, error = new Error(`TimeoutError: ${msec}ms exceeded.`)) => {
+  queue.push({
+    label,
+    fn: (done) => {
+      try {
+        const timeout = setTimeout(doTimeout ? done : Function.prototype, msec, error)
+        testFn(err => {
+          clearTimeout(timeout)
+          if (!timeout._called || !doTimeout) done(err)
+        })
+        if (testFn.length === 0) done(null)
+      } catch (err) {
+        done(err)
+      }
     }
-  }
-})
-exports.beforeEach = (before, {assign} = Object) => {
+  })
+}
+
+exports.beforeEach = (beforeFn, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
     return assign(context, {
       fn (done) {
         try {
-          before()
-          fn(done)
+          beforeFn()
+          fn(done) // aint this just another wrap of fn in the end
           if (fn.length === 0) done(null)
         } catch (err) {
           done(err)
@@ -38,24 +48,25 @@ exports.beforeEach = (before, {assign} = Object) => {
     })
   })
 }
-exports.afterEach = (after, {assign} = Object) => {
+
+exports.afterEach = (afterFn, {assign} = Object) => {
   queue.map(context => {
     const fn = context.fn
     return assign(context, {
       fn (done) {
         try {
-          fn((err) => {
+          fn((err) => { // aint this just another wrap of fn in the end
             try {
-              after(() => done(err))
-              if (after.length === 0) done(err)
+              afterFn(() => done(err))
+              if (afterFn.length === 0) done(err)
             } catch (err) {
               done(err)
             }
           })
           if (fn.length === 0) {
             try {
-              after(done)
-              if (after.length === 0) done(null)
+              afterFn(done)
+              if (afterFn.length === 0) done(null)
             } catch (err) {
               done(err)
             }
@@ -67,34 +78,13 @@ exports.afterEach = (after, {assign} = Object) => {
     })
   })
 }
-function push () {
-  queue.push(...arguments)
-}
-function next () {
-  if (queue.length === 0) return
-  const {fn, done} = shift(queue)
-  const handle = trap(done)
-  try {
-    queue.length = 0
-    fn(handle)
-    if (fn.length === 0) handle(null)
-  } catch (err) {
-    handle(err)
-  }
-  function trap (done) {
-    process.once('uncaughtException', done)
-    return (err = null) => {
-      process.removeListener('uncaughtException', done)
-      done(err)
-    }
-  }
-}
-function shift ([context, ...pending]) {
+
+exports.reporter = (context) => { // pluggable #2, fyi #20
   const {elapsed} = timerFor(context)
   return {
-    done (err) {
+    toString (err) {
       const indent = indentFor(context)
-      if (queue.length > 0) { // context
+      if (!context.parent) { // context
         console.log('%s%s', indent, context.label)
       } else { // test
         if (err) {
@@ -114,26 +104,55 @@ function shift ([context, ...pending]) {
           }
         }
       }
-      queue.forEach(bindTo(context))
-      push(...pending)
-      next(err)
-    },
-    fn: context.fn
+    }
+    // summary #1
   }
-}
-function indentFor (context, length = 0) {
-  if (context.parent === undefined) {
-    return Array.from({length}).fill('  ').join('')
+  function indentFor (context, length = 0) {
+    if (context.parent === undefined) {
+      return Array.from({length}).fill('  ').join('')
+    }
+    return indentFor(context.parent, ++length)
   }
-  return indentFor(context.parent, ++length)
-}
-function bindTo (parent, {assign} = Object) {
-  return (context) => assign(context, {parent})
-}
-function timerFor (context, initial = Date.now()) {
-  return {
-    elapsed () {
-      return Date.now() - initial
+  function timerFor (context, initial = Date.now()) {
+    return {
+      elapsed () {
+        return Date.now() - initial
+      }
     }
   }
 }
+
+process.setMaxListeners(0)
+process.once('beforeExit', function shift (repoter) {
+  if (queue.length === 0) return
+  const {fn, done} = (function ([context, ...pending]) {
+    const {toString} = exports.reporter(context)
+    return {
+      done (err) {
+        toString(err)
+        queue.forEach(bindTo(context))
+        queue.push(...pending)
+        shift(err)
+        function bindTo (parent, {assign} = Object) {
+          return (context) => assign(context, {parent})
+        }
+      },
+      fn: context.fn
+    }
+  })(queue)
+  const handle = trap(done) // move trap to shiftFn
+  try {
+    queue.length = 0
+    fn(handle)
+    if (fn.length === 0) handle(null)
+  } catch (err) {
+    handle(err)
+  }
+  function trap (done) {
+    process.once('uncaughtException', done)
+    return (err = null) => {
+      process.removeListener('uncaughtException', done)
+      done(err)
+    }
+  }
+})

@@ -2,7 +2,7 @@
 set -e
 NAME="m.test"
 PACKAGE=$(dirname $(dirname $(node -pe "require('fs').realpathSync('$0')")))
-MODULES="$PACKAGE/globals"
+MODULES="$PACKAGE/global"
 PATTERN="*.js"
 while [[ $# -gt 0 ]]; do
   flag="$1"
@@ -27,7 +27,7 @@ while [[ $# -gt 0 ]]; do
         MODULES="$MODULES -r $2"
         shift
       ;;
-      -g|--grep)
+      -f|--filter)
         PATTERN="$2"
         shift
       ;;
