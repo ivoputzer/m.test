@@ -84,7 +84,7 @@ exports.reporter = (context) => { // pluggable #2, fyi #20
   return {
     toString (err) {
       const indent = indentFor(context)
-      if (!context.parent) { // context
+      if (queue.length > 0) { // context
         console.log('%s%s', indent, context.label)
       } else { // test
         if (err) {
