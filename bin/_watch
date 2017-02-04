@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const watch = require('fs').watch
+const spawn = require('child_process').spawn
+
+const [cmd, ...args] = process.argv.slice(2)
+const listener = spawn.bind(this, cmd, args, {stdio: 'inherit'})
+
+watch(process.cwd(), {recursive: true, env: process.env}, listener)
