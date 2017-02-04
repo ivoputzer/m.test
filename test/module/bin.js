@@ -3,7 +3,8 @@ const {lstatSync, constants: {X_OK} = {X_OK: 1}} = require('fs')
 
 test('module/bin', function () {
   test('package `m.test` binary is configured!', function () {
-    ok(process.env['npm_package_bin_m_test'])
+    const bin =
+    ok(process.env['npm_package_bin_m_test'] || require('../../package').bin['m.test'])
   })
   test('all package binaries are executable!', function () {
     binariesFor(process).forEach(path => {
