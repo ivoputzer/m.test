@@ -4,14 +4,13 @@ git:
 node_js:
 - 7
 - 6
-- 5
-- 4
 before_install:
 - npm i standard babel-cli babel-preset-es2015
 - node_modules/.bin/standard
-- node_modules/.bin/babel ./ --out-dir ./ --ignore node_modules --presets es2015
 install:
 - NODE_ENV=production npm i
+before_deploy:
+  - node_modules/.bin/babel ./ --out-dir ./ --ignore node_modules --presets es2015
 deploy:
   provider: npm
   skip_cleanup: true
