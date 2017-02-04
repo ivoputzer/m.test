@@ -4,6 +4,7 @@ NAME="m.test"
 PACKAGE=$(dirname $(dirname $(node -pe "require('fs').realpathSync('$0')")))
 MODULES="$PACKAGE/global"
 PATTERN="*.js"
+WATCH=""
 while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
@@ -31,10 +32,14 @@ while [[ $# -gt 0 ]]; do
         PATTERN="$2"
         shift
       ;;
+      -w|--watch)
+        WATCH="$PACKAGE/bin/_watch"
+      ;;
       *)
         FILES="$FILES $1"
       ;;
   esac
   shift
 done
-find ${FILES:-test} -type f -iname "$PATTERN" | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
+
+$WATCH find ${FILES:-test} -type f -iname "$PATTERN" | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
