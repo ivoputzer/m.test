@@ -1,6 +1,7 @@
 test/
 opt/
 
+.babelrc
 .travis.yml
 
 *.log
