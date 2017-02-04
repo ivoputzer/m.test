@@ -79,7 +79,7 @@ exports.afterEach = (afterFn, {assign} = Object) => {
   })
 }
 
-exports.reporter = (context) => { // pluggable #2, fyi #20
+exports.reporter = global.hasOwnProperty('reporter') ? global.reporter : function (context) {
   const {elapsed} = timerFor(context)
   return {
     toString (err) {
