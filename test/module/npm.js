@@ -2,13 +2,15 @@ const {equal} = require('assert')
 
 test('module/npm', function () {
   test('is available on npm!', done => {
-    head({path: process.env.npm_package_name, host: 'registry.npmjs.org', port: 80}, (res) => {
+    const name = require('../../package').name
+    head({path: process.env.npm_package_name = name, host: 'registry.npmjs.org', port: 80}, (res) => {
       equal(res.statusCode, 200)
       done()
     })
   })
   test.skip('latest version has been deployed!', done => {
-    get({path: process.env.npm_package_name, host: 'registry.npmjs.org', port: 80}, (res) => {
+    const name = require('../../package').name
+    get({path: process.env.npm_package_name = name, host: 'registry.npmjs.org', port: 80}, (res) => {
       equal(res.statusCode, 200)
       res.pipe(toJson(({'dist-tags': {latest}}) => {
         equal(latest, process.env.npm_package_version)
