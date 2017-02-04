@@ -30,7 +30,13 @@ OPTIONS
       matches the pattern. the match is case insensitive.
 
     -w, --watch
-      watch files for changes on the current cwd.
+      watches files for changes on the current cwd:
+        • on Linux systems, watch uses inotify;
+        • on BSD systems, watch uses kqueue;
+        • on OS X, watch uses kqueue for files and FSEvents for directories;
+        • on SunOS systems (including Solaris and SmartOS), watch uses event ports;
+        • on Windows systems, watch feature depends on ReadDirectoryChangesW;
+        • on Aix systems, watch feature depends on AHAFS, which must be enabled.
 
   AVAILABLE SOON
 
