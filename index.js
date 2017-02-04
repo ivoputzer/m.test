@@ -14,12 +14,12 @@ exports.test.skip = (label, testFn, doSkip = true) => {
   })
 }
 
-exports.test.timeout = (label, testFn, msec, doTimeout = true, error = new Error(`TimeoutError: ${msec}ms exceeded.`)) => {
+exports.test.timeout = (label, testFn, mSec, doTimeout = true, error = new Error(`TimeoutError: ${mSec}ms exceeded.`)) => {
   queue.push({
     label,
     fn: (done) => {
       try {
-        const timeout = setTimeout(doTimeout ? done : Function.prototype, msec, error)
+        const timeout = setTimeout(doTimeout ? done : Function.prototype, mSec, error)
         testFn(err => {
           clearTimeout(timeout)
           if (!timeout._called || !doTimeout) done(err)
