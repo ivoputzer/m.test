@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const watch = require('fs').watch // 5.10+
+const watch = require('fs').watch
 const spawn = require('child_process').spawn
 
 const [cmd, ...args] = process.argv.slice(2)
