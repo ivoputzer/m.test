@@ -1,6 +1,6 @@
 {
   "name": "m.test",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "homepage": "https://github.com/ivoputzer/m.test#readme",
   "description": "m(icro)test is a lightweight test runner for node.js written in es6+",
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
@@ -22,6 +22,10 @@
     "beforeEach",
     "afterEach"
   ],
+  "dependencies": {
+    "watch": "file:lib/watch",
+    "no-ansi": "file:lib/no-ansi"
+  },
   "bin": {
     "m.test": "bin/m.test",
     "mtest": "bin/m.test"

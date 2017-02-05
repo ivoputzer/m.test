@@ -1,15 +1,13 @@
 #!/usr/bin/env sh
 set -e
-NAME="m.test"
-PACKAGE=$(dirname $(dirname $(node -pe "require('fs').realpathSync('$0')")))
-MODULES="$PACKAGE/global"
-PATTERN="*.js"
-WATCH=""
+name="m.test"
+package=$(dirname $(dirname $(node -pe "require('fs').realpathSync('$0')")))
+modules="$package/global"
 while [[ $# -gt 0 ]]; do
   flag="$1"
   case $flag in
       help|-h|--help)
-      cat $PACKAGE/man/$NAME.1 \
+      cat $package/man/$name.1 \
         | sed '1,8d; $d' \
         | sed -e 's/SYNOPSIS/  Usage:/g' \
         | sed -e 's/OPTIONS/  Options:/g' \
@@ -17,29 +15,33 @@ while [[ $# -gt 0 ]]; do
         exit 0
       ;;
       version|-v|--version)
-        node -pe "require('$PACKAGE/package.json').version"
+        node -pe "require('$package/package.json').version"
         exit 0
       ;;
       -p|--parallel)
-        MAXPROCS="$2"
+        maxprocs="$2"
         shift
       ;;
       -r|--require)
-        MODULES="$MODULES -r $2"
+        modules="$modules --require $2"
         shift
       ;;
       -f|--filter)
-        PATTERN="$2"
+        pattern="$2"
         shift
       ;;
       -w|--watch)
-        WATCH="$PACKAGE/bin/_watch"
+        watch="node_modules/.bin/watch"
+      ;;
+      --no-ansi)
+        noansi=1
       ;;
       *)
-        FILES="$FILES $1"
+        files="$files $1"
       ;;
   esac
   shift
 done
-
-$WATCH find ${FILES:-test} -type f -iname "$PATTERN" | xargs -n 1 -P ${MAXPROCS:-1} node -r $MODULES
+$watch find ${files:-test} -type f -iname ${pattern:-\*\.js} \
+  | xargs -n 1 -P ${maxprocs:-1} node --require ${modules} \
+  | ([ -z $noansi ] && cat || node -e "process.stdin.pipe(require('no-ansi')).pipe(process.stdout)")
