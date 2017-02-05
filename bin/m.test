@@ -30,11 +30,21 @@ while [[ $# -gt 0 ]]; do
         pattern="$2"
         shift
       ;;
+      -i|--ignore)
+        ignore="$2"
+        shift
+      ;;
       -w|--watch)
         watch="node_modules/.bin/watch"
       ;;
       --no-ansi)
         noansi=1
+      ;;
+      --debug)
+        args="debug $args"
+      ;;
+      --debug-brk)
+        args="debug --debug-brk $args"
       ;;
       *)
         files="$files $1"
@@ -42,6 +52,7 @@ while [[ $# -gt 0 ]]; do
   esac
   shift
 done
-$watch find ${files:-test} -type f -iname ${pattern:-\*\.js} \
-  | xargs -n 1 -P ${maxprocs:-1} node --require ${modules} \
+
+$watch find ${files:-test} -type f \( -iname ${pattern:-\*\.js} ! -iname ${ignore:-\.\*} \) \
+  | xargs -o -n 1 -P ${maxprocs:-1} node ${args} --require ${modules} \
   | ([ -z $noansi ] && cat || node -e "process.stdin.pipe(require('no-ansi')).pipe(process.stdout)")

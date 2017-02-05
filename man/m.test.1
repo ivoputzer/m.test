@@ -29,6 +29,19 @@ OPTIONS
       true if the last component of the pathname being examined
       matches the pattern. the match is case insensitive.
 
+    -i, --ignore "pattern"
+      false if the last component of the pathname being examined
+      matches the pattern. the match is case insensitive.
+
+    --no-ansi
+      do not use ANSI escape and color codes codes.
+
+    --debug
+      enable node's debugger.
+
+    --debug-brk
+      enable node's debugger breaking on the first line.
+
     -w, --watch
       watches files for changes on the current cwd:
         • on Linux systems, watch uses inotify;
@@ -37,15 +50,6 @@ OPTIONS
         • on SunOS systems (including Solaris and SmartOS), watch uses event ports;
         • on Windows systems, watch feature depends on ReadDirectoryChangesW;
         • on Aix systems, watch feature depends on AHAFS, which must be enabled.
-
-    --no-ansi
-      do not use ANSI escape and color codes codes.
-
-  AVAILABLE SOON
-
-    -i, --ignore "pattern"
-    false if the last component of the pathname being examined
-    matches the pattern. the match is case insensitive.
 
 COMMANDS
     m.test-help()
