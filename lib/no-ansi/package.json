@@ -1,5 +1,6 @@
 {
   "name": "no-ansi",
   "version": "0.0.0-private",
+  "main": "index.js",
   "private": true
 }
