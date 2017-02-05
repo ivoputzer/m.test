@@ -3,6 +3,9 @@
 
 **[m(icro)](https://github.com/ivoputzer/m.cro#readme)[test](https://github.com/ivoputzer/m.test)** is a lightweight test runner for [node.js](https://nodejs.org/) written in es6+ (~4kb).
 
+#### donations
+thanks for your support! [gratipay](https://gratipay.com/m.test/)
+
 #### install
 
 install [m.test](https://github.com/ivoputzer/m.test) directly from [npm](https://www.npmjs.com) to project's [devDependencies](https://docs.npmjs.com/files/package.json#devdependencies).
