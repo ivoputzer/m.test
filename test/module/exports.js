@@ -1,6 +1,6 @@
 const {ok} = require('assert')
 
-test('module/exports', function () {
+test('module/exports:', function () {
   const exports = require('../..')
 
   test('exports `test` property!', function () {

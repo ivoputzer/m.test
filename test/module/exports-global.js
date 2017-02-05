@@ -1,6 +1,6 @@
 const {ok} = require('assert')
 
-test('module/exports-global', function () {
+test('module/exports-global:', function () {
   const exports = require.main.require.call(require, './global.js')
 
   test('exports `test` property!', function () {
