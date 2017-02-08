@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
         shift
       ;;
       -w|--watch)
-        watch="node_modules/.bin/watch"
+        watch="$package/bin/_watch"
       ;;
       --no-ansi)
         noansi=1
@@ -53,6 +53,6 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-$package/bin/_watch find ${files:-test} -type f \( -iname ${pattern:-\*\.js} ! -iname ${ignore:-\.\*} \) \
+$watch find ${files:-test} -type f \( -iname ${pattern:-\*\.js} ! -iname ${ignore:-\.\*} \) \
   | xargs -n 1 -P ${maxprocs:-1} sh -c 'node "$@" < /dev/tty' node ${args} --require ${modules} \
   | ([ -z $noansi ] && cat || node -e "process.stdin.pipe(require('stream').Transform({transform (data, enc, next) { next(null, data.toString().replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-PRZcf-nqry=><]/g, String()) }})).pipe(process.stdout)")
