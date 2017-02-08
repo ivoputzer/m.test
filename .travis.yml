@@ -2,15 +2,13 @@ language: node_js
 git:
   depth: 1
 node_js:
+- latest
 - 7
 - 6
 before_install:
-- npm i standard babel-cli babel-preset-es2015
 - node_modules/.bin/standard
 install:
 - npm i --production
-before_deploy:
-  - node_modules/.bin/babel ./ --out-dir ./ --ignore node_modules --presets es2015
 deploy:
   provider: npm
   skip_cleanup: true
