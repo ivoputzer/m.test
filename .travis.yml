@@ -6,6 +6,7 @@ node_js:
 - 7
 - 6
 before_install:
+- npm i standard
 - node_modules/.bin/standard
 install:
 - npm i --production
