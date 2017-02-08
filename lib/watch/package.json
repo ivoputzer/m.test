@@ -1,6 +1,0 @@
-{
-  "name": "watch",
-  "version": "0.0.0-private",
-  "bin": "bin/watch",
-  "private": true
-}
