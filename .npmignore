@@ -1,6 +1,7 @@
 test/
 opt/
 
+.github/
 .babelrc
 .travis.yml
 
