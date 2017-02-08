@@ -54,5 +54,5 @@ while [[ $# -gt 0 ]]; do
 done
 
 $watch find ${files:-test} -type f \( -iname ${pattern:-\*\.js} ! -iname ${ignore:-\.\*} \) \
-  | xargs -o -n 1 -P ${maxprocs:-1} node ${args} --require ${modules} \
+  | xargs -n 1 -P ${maxprocs:-1} sh -c 'node "$@" < /dev/tty' node ${args} --require ${modules} \
   | ([ -z $noansi ] && cat || node -e "process.stdin.pipe(require('no-ansi')).pipe(process.stdout)")
