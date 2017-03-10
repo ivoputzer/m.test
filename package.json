@@ -22,8 +22,6 @@
     "beforeEach",
     "afterEach"
   ],
-  "dependencies": {
-  },
   "bin": {
     "m.test": "bin/m.test",
     "m-test": "bin/m.test",
@@ -35,7 +33,9 @@
   },
   "scripts": {
     "node": "node",
-    "test": "$npm_package_bin_m_test"
+    "lint": "standard",
+    "test": "$npm_package_bin_m_test",
+    "test:coverage": "istanbul cover $npm_package_bin_m_test"
   },
   "license": "MIT",
   "man": [
@@ -50,7 +50,12 @@
   },
   "standard": {
     "globals": [
-      "test", "beforeEach", "afterEach"
+      "test",
+      "beforeEach",
+      "afterEach"
     ]
+  },
+  "devDependencies": {
+    "standard": "^8.6.0"
   }
 }

@@ -6,11 +6,7 @@ node_js:
 - 7.0
 - 6.9
 - 6.0
-before_install:
-- npm i standard
-- node_modules/.bin/standard
-install:
-- npm i --production
+before_script: npm run lint
 deploy:
   provider: npm
   skip_cleanup: true
