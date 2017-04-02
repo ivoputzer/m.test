@@ -6,6 +6,9 @@
   "author": "Ivo von Putzer Reibegg <ivo.putzer@gmail.com> (https://github.com/ivoputzer)",
   "keywords": [
     "m!cro",
+    "micro",
+    "unit",
+    "integration",
     "m.test",
     "mtest",
     "assert",

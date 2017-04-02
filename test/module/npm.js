@@ -1,6 +1,6 @@
 const {equal} = require('assert')
 
-test('module/npm:', function () {
+test.skip('module/npm:', function () {
   test('is available on npm!', done => {
     const name = require('../../package').name
     head({path: process.env.npm_package_name = name, host: 'registry.npmjs.org', port: 80}, (res) => {
