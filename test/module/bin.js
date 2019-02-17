@@ -1,5 +1,5 @@
-const {ok} = require('assert')
-const {lstatSync, constants: {X_OK} = {X_OK: 1}} = require('fs')
+const { ok } = require('assert')
+const { lstatSync, constants: { X_OK } = { X_OK: 1 } } = require('fs')
 
 test('module/bin:', function () {
   test('package `m.test` binary is configured!', function () {
@@ -11,7 +11,7 @@ test('module/bin:', function () {
       ok(lstatSync(path).mode & X_OK)
     })
   })
-  function binariesFor ({env}, {keys} = Object) {
+  function binariesFor ({ env }, { keys } = Object) {
     return keys(env).reduce((paths, bin) => {
       return /npm_package_bin_/ig.test(bin) ? [env[bin], ...paths] : paths
     }, [])

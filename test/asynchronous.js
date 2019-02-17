@@ -1,4 +1,4 @@
-const {ok} = require('assert')
+const { ok } = require('assert')
 
 test('asynchronous:', function () {
   test('runner works!', function (done) {
@@ -19,7 +19,7 @@ test('asynchronous:', function () {
   })
 
   test.skip('runner fails!', function (done) {
-    setTimeout(done.bind(null, {name: 'AssertionError', message: '', stack: new Error().stack}), 0)
+    setTimeout(done.bind(null, { name: 'AssertionError', message: '', stack: new Error().stack }), 0)
   }, !process.env.DEBUG)
 
   test.skip('runner fails from exception!', function (done) {

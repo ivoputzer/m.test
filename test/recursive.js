@@ -1,4 +1,4 @@
-const {ok} = require('assert')
+const { ok } = require('assert')
 
 test('recursive:', function () {
   test('1 runner works as a structural element!', function () {
