@@ -1,4 +1,4 @@
-const {ok} = require('assert')
+const { ok } = require('assert')
 
 test('module/exports:', function () {
   const exports = require('../..')

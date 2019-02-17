@@ -1,4 +1,4 @@
-const {ok} = require('assert')
+const { ok } = require('assert')
 
 test('module/global:', function () {
   const exports = require.main.require.call(require, './global.js')

@@ -32,7 +32,7 @@ exports.test.timeout = (label, testFn, mSec, doTimeout = true, error = new Error
   })
 }
 
-exports.beforeEach = (beforeFn, {assign} = Object) => {
+exports.beforeEach = (beforeFn, { assign } = Object) => {
   queue.map(context => {
     const fn = context.fn
     return assign(context, {
@@ -49,7 +49,7 @@ exports.beforeEach = (beforeFn, {assign} = Object) => {
   })
 }
 
-exports.afterEach = (afterFn, {assign} = Object) => {
+exports.afterEach = (afterFn, { assign } = Object) => {
   queue.map(context => {
     const fn = context.fn
     return assign(context, {
@@ -80,7 +80,7 @@ exports.afterEach = (afterFn, {assign} = Object) => {
 }
 
 exports.reporter = global.hasOwnProperty('reporter') ? global.reporter : function (context) {
-  const {elapsed} = timerFor(context)
+  const { elapsed } = timerFor(context)
   return {
     toString (err) {
       const indent = indentFor(context)
@@ -109,7 +109,7 @@ exports.reporter = global.hasOwnProperty('reporter') ? global.reporter : functio
   }
   function indentFor (context, length = 0) {
     if (context.parent === undefined) {
-      return Array.from({length}).fill('  ').join('')
+      return Array.from({ length }).fill('  ').join('')
     }
     return indentFor(context.parent, ++length)
   }
@@ -125,16 +125,16 @@ exports.reporter = global.hasOwnProperty('reporter') ? global.reporter : functio
 process.setMaxListeners(0)
 process.once('beforeExit', function shift (repoter) {
   if (queue.length === 0) return
-  const {fn, done} = (function ([context, ...pending]) {
-    const {toString} = exports.reporter(context)
+  const { fn, done } = (function ([context, ...pending]) {
+    const { toString } = exports.reporter(context)
     return {
       done (err) {
         toString(err)
         queue.forEach(bindTo(context))
         queue.push(...pending)
         shift(err)
-        function bindTo (parent, {assign} = Object) {
-          return (context) => assign(context, {parent})
+        function bindTo (parent, { assign } = Object) {
+          return (context) => assign(context, { parent })
         }
       },
       fn: context.fn
