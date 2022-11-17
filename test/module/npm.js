@@ -8,7 +8,7 @@ test('module/npm:', function () {
       done()
     })
   })
-  test('latest version has been deployed!', done => {
+  test.skip('latest version has been deployed!', done => {
     const name = require('../../package').name
     get({ path: process.env.npm_package_name = name, host: 'registry.npmjs.org', port: 80 }, (res) => {
       strictEqual(res.statusCode, 200)

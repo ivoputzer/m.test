@@ -78,49 +78,50 @@ exports.afterEach = (afterFn, { assign } = Object) => {
     })
   })
 }
-
-exports.reporter = global.hasOwnProperty('reporter') ? global.reporter : function (context) {
-  const { elapsed } = timerFor(context)
-  return {
-    toString (err) {
-      const indent = indentFor(context)
-      if (queue.length > 0) { // context
-        console.log('%s%s', indent, context.label)
-      } else { // test
-        if (err) {
-          process.exitCode = 1
-          console.log('%s\x1b[31m✘\x1b[0m %s (%dms)', indent, context.label, elapsed())
-          if (err.name) {
-            console.log('  %s\x1b[31m%s\x1b[0m', indent, err.name, err.message)
-            console.error(err.stack.toString().split('\n').splice(1).join('\n'))
+exports.reporter = Object.hasOwn(global, 'reporter')
+  ? global.reporter
+  : function (context) {
+    const { elapsed } = timerFor(context)
+    return {
+      toString (err) {
+        const indent = indentFor(context)
+        if (queue.length > 0) { // context
+          console.log('%s%s', indent, context.label)
+        } else { // test
+          if (err) {
+            process.exitCode = 1
+            console.log('%s\x1b[31m✘\x1b[0m %s (%dms)', indent, context.label, elapsed())
+            if (err.name) {
+              console.log('  %s\x1b[31m%s\x1b[0m', indent, err.name, err.message)
+              console.error(err.stack.toString().split('\n').splice(1).join('\n'))
+            } else {
+              console.log('  %s%s', indent, err)
+            }
           } else {
-            console.log('  %s%s', indent, err)
-          }
-        } else {
-          if (context.fn === Function.prototype) {
-            console.log('%s- %s', indent, context.label)
-          } else {
-            console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+            if (context.fn === Function.prototype) {
+              console.log('%s- %s', indent, context.label)
+            } else {
+              console.log('%s\x1b[32m✔\x1b[0m %s (%dms)', indent, context.label, elapsed())
+            }
           }
         }
       }
-    }
     // summary #1
-  }
-  function indentFor (context, length = 0) {
-    if (context.parent === undefined) {
-      return Array.from({ length }).fill('  ').join('')
     }
-    return indentFor(context.parent, ++length)
-  }
-  function timerFor (context, initial = Date.now()) {
-    return {
-      elapsed () {
-        return Date.now() - initial
+    function indentFor (context, length = 0) {
+      if (context.parent === undefined) {
+        return Array.from({ length }).fill('  ').join('')
+      }
+      return indentFor(context.parent, ++length)
+    }
+    function timerFor (context, initial = Date.now()) {
+      return {
+        elapsed () {
+          return Date.now() - initial
+        }
       }
     }
   }
-}
 
 process.setMaxListeners(0)
 process.once('beforeExit', function shift (repoter) {

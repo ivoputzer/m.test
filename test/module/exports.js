@@ -4,14 +4,14 @@ test('module/exports:', function () {
   const exports = require('../..')
 
   test('exports `test` property!', function () {
-    ok(exports.hasOwnProperty('test'))
+    ok(Object.hasOwn(exports, 'test'))
   })
 
   test('exports `beforeEach` property!', function () {
-    ok(exports.hasOwnProperty('beforeEach'))
+    ok(Object.hasOwn(exports, 'beforeEach'))
   })
 
   test('exports `afterEach` property!', function () {
-    ok(exports.hasOwnProperty('afterEach'))
+    ok(Object.hasOwn(exports, 'afterEach'))
   })
 })
