@@ -18,7 +18,10 @@ function exec (args) {
   return new Promise ((resolve, reject) => {
     spawn('node', args, { stdio: 'inherit' })
       .on('error', reject)
-      .on('close', resolve)
+      .on('close', exit => {
+        if (exit === 1) process.exit(1)
+        resolve(exit)
+      })
   })
 }
 
@@ -26,3 +29,10 @@ function exec (args) {
 // basic functionality of current binary
 // all flag configurations are not supported yet
 // only test folder $cwd/test
+
+// we need to find a way to add:
+// - [ ] exit code if one of the underlying fails
+// - [ ] watch feature
+// - [ ] parallel execution
+// - [ ] coverage
+// - [ ] debug
