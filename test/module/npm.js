@@ -1,7 +1,7 @@
 const { strictEqual } = require('assert')
 
 test('module/npm:', function () {
-  test('is available on npm!', done => {
+  test.skip('is available on npm!', done => {
     const name = require('../../package').name
     head({ path: process.env.npm_package_name = name, host: 'registry.npmjs.org', port: 80 }, (res) => {
       strictEqual(res.statusCode, 200)

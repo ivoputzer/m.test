@@ -33,7 +33,8 @@
   },
   "scripts": {
     "node": "node",
-    "lint": "standard",
+    "standard": "standard",
+    "lint": "npx standard",
     "test": "$npm_package_bin_m_test",
     "test:v2": "bin/index.mjs",
     "test:coverage": "istanbul cover $npm_package_bin_m_test"
