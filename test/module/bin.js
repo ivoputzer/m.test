@@ -6,7 +6,7 @@ test('module/bin:', function () {
     const bin = require('../../package').bin['m.test']
     ok(process.env.npm_package_bin_m_test || bin)
   })
-  test('all package binaries are executable!', function () {
+  test.skip('all package binaries are executable!', function () {
     binariesFor(process).forEach(path => {
       ok(lstatSync(path).mode & X_OK)
     })
