@@ -28,14 +28,12 @@ jobs:
     - run: git status
   npm-test:
     needs: npm-lint
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
-      max-parallel: 1
-      os: [ubuntu-latest, windows-latest]
       matrix:
-        node-version:
-        - latest
-    runs-on: ${{ matrix.os }}
+        node-version: [latest]
+        os: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
