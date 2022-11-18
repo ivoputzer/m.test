@@ -53,6 +53,8 @@ jobs:
         node-version: latest
     - run: npm publish
       if: startsWith(github.ref, 'refs/heads/master')
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.node_auth_token }}
 
 # # name: Release NPM package
 # # on:
