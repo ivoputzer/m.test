@@ -34,7 +34,6 @@ jobs:
       max-parallel: 1
       matrix:
         node-version:
-        - lts
         - latest
     steps:
     - uses: actions/checkout@v3
