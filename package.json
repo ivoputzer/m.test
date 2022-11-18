@@ -23,9 +23,9 @@
     "afterEach"
   ],
   "bin": {
-    "m.test": "bin/m.test",
-    "m-test": "bin/m.test",
-    "mtest": "bin/m.test"
+    "m.test": "bin/index.mjs",
+    "m-test": "bin/index.mjs",
+    "mtest": "bin/index.mjs"
   },
   "main": "index.js",
   "engines": {
@@ -35,9 +35,8 @@
     "node": "node",
     "standard": "standard",
     "lint": "npx standard",
-    "test": "$npm_package_bin_m_test",
-    "test:v2": "bin/index.mjs",
-    "test:coverage": "istanbul cover $npm_package_bin_m_test"
+    "test": "bin/index.mjs",
+    "test:coverage": "istanbul cover bin/index.mjs"
   },
   "license": "MIT",
   "man": [
