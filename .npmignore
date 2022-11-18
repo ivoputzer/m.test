@@ -1,9 +1,10 @@
 test/
 opt/
-
+node_modules/
 .github/
+.vscode/
 .babelrc
+.npmrc
 .travis.yml
-
 *.log
 *.tgz
