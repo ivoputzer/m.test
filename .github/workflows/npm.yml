@@ -22,8 +22,10 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: latest
-    steps:
-    - npm: run pack
+    - run: npm version
+    - run: npm pack
+    - run: ls *.tgz
+    - run: git status
   npm-test:
     needs: npm-lint
     runs-on: ubuntu-latest
