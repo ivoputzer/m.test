@@ -30,12 +30,11 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: latest
-    - run: |
-      echo "npm_pack_filename=$(npm pack -q)" >> $GITHUB_ENV
+    - run: echo "NPM_PACK_FILENAME=$(npm pack -q)" >> $GITHUB_ENV
     - uses: actions/upload-artifact@v2
       with:
         name: npm@${{ github.sha }}
-        path: ${{ env.npm_pack_filename }}.tgz
+        path: ${{ env.NPM_PACK_FILENAME }}.tgz
   npm-test:
     runs-on: ${{ matrix.os }}
     needs: npm-lint
